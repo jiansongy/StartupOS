@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StartupOS - 创始人操作系统，专为数字创业大学生打造。把猜测变成事实，用科学方法验证你的创业想法。">
+  <meta name="keywords" content="创业, 精益创业, Lean Canvas, 产品验证, 创业工具, startup, entrepreneurship">
+  <meta name="author" content="StartupOS">
+  <meta name="theme-color" content="#FFFFFF">
+  
+  <title>StartupOS - 创始人操作系统</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071E3'/%3E%3Ctext x='16' y='22' font-family='system-ui' font-size='16' font-weight='bold' fill='white' text-anchor='middle'%3ESOS%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <style>
+    .hero-content {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.2s;
+    }
+    
+    .hero-eyebrow {
+      opacity: 0;
+      animation: fadeInDown 0.6s ease forwards;
+      animation-delay: 0.4s;
+    }
+    
+    .hero-title {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.5s;
+    }
+    
+    .hero-subtitle {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.6s;
+    }
+    
+    .hero-actions {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.7s;
+    }
+    
+    .feature-card:nth-child(1) { animation-delay: 0.1s; }
+    .feature-card:nth-child(2) { animation-delay: 0.2s; }
+    .feature-card:nth-child(3) { animation-delay: 0.3s; }
+    .feature-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    .journey-step:nth-child(1) { animation-delay: 0.1s; }
+    .journey-step:nth-child(2) { animation-delay: 0.2s; }
+    .journey-step:nth-child(3) { animation-delay: 0.3s; }
+    .journey-step:nth-child(4) { animation-delay: 0.4s; }
+    
+    .feature-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: var(--transition-base);
+    }
+    
+    .feature-link:hover {
+      gap: 8px;
+      color: var(--color-accent-hover);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-mark">SOS</span>
+          <span class="logo-text">StartupOS</span>
+        </a>
+        
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="vision.html" class="nav-link">Vision</a>
+          <a href="foundation.html" class="nav-link">Foundation</a>
+          <a href="validation.html" class="nav-link">Validation</a>
+          <a href="betting-table.html" class="nav-link">Betting</a>
+        </nav>
+        
+        <button 
+          class="mobile-menu-btn" 
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <div class="hamburger">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="mobile-nav-links">
+      <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
+      <a href="vision.html" class="mobile-nav-link">Vision</a>
+      <a href="foundation.html" class="mobile-nav-link">Foundation</a>
+      <a href="validation.html" class="mobile-nav-link">Validation</a>
+      <a href="betting-table.html" class="mobile-nav-link">Betting</a>
+    </div>
+  </nav>
+  
+  <main>
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-eyebrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+            Founder's Operating System
+          </div>
+          
+          <h1 class="hero-title">
+            把"猜测"变成"事实"
+          </h1>
+          
+          <p class="hero-subtitle">
+            创始人操作系统 — 专为数字创业大学生打造。<br>
+            用科学方法验证想法，用数据驱动决策，告别盲目试错。
+          </p>
+          
+          <div class="hero-actions">
+            <a href="dashboard.html" class="btn btn-primary btn-lg">
+              开始使用
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+            
+            <a href="#features" class="hero-cta-secondary">
+              了解更多
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="features-section section-spacing-lg" id="features">
+      <div class="container">
+        <header class="section-header">
+          <p class="section-eyebrow">Core Features</p>
+          <h2 class="section-title">四大核心模块</h2>
+          <p class="section-description">
+            融合 Lean Canvas、Disciplined Entrepreneurship、Shape Up 和 Click 方法论，<br>
+            为你的创业之旅提供完整的工具链。
+          </p>
+        </header>
+        
+        <div class="features-grid">
+          <article class="feature-card" data-animate="fade-in-up">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+                <path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>
+                <circle cx="12" cy="12" r="3" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">愿景中心</h3>
+            <p class="feature-subtitle">Vision Hub</p>
+            <p class="feature-description">
+              EOS V/TO 框架，定义你的核心聚焦、10-3-1 年目标金字塔、三大独特优势和核心价值观。清晰的愿景是一切决策的基石。
+            </p>
+            <a href="vision.html" class="feature-link">探索愿景 →</a>
+          </article>
+          
+          <article class="feature-card" data-animate="fade-in-up">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18M9 21V9"/>
+                <circle cx="15" cy="15" r="2" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">创始假设</h3>
+            <p class="feature-subtitle">Foundation Sprint</p>
+            <p class="feature-description">
+              Click Foundation 方法论，通过四大基础、八大差异化滑块和四象限矩阵，构建你的创始假设蓝图。
+            </p>
+            <a href="foundation.html" class="feature-link">构建基础 →</a>
+          </article>
+          
+          <article class="feature-card" data-animate="fade-in-up">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M15 15l-2 5L9 9l11 4-5 2z"/>
+                <path d="M15 15l5 5"/>
+                <circle cx="9" cy="9" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">验证中心</h3>
+            <p class="feature-subtitle">Validation Hub</p>
+            <p class="feature-description">
+              AI 驱动的验证助手，提供市场研究、痛点雷达、实验方案和专家委员会评审，在写代码前验证你的假设。
+            </p>
+            <a href="validation.html" class="feature-link">开始验证 →</a>
+          </article>
+          
+          <article class="feature-card" data-animate="fade-in-up">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 7v5l3 3"/>
+                <path d="M3 12h2M19 12h2M12 3v2M12 19v2"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">下注台</h3>
+            <p class="feature-subtitle">Betting Table</p>
+            <p class="feature-description">
+              Shape Up 周期管理 + EOS Rocks 季度目标。用 Hill Chart 可视化进度，用固定时间盒约束范围，避免功能清单无限膨胀。
+            </p>
+            <a href="betting-table.html" class="feature-link">查看下注 →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+    
+    <section class="journey-section section-spacing-lg" id="journey">
+      <div class="container">
+        <header class="section-header">
+          <p class="section-eyebrow">How It Works</p>
+          <h2 class="section-title">你的创业旅程</h2>
+          <p class="section-description">
+            四步循环，从模糊想法到验证产品
+          </p>
+        </header>
+        
+        <div class="journey-timeline">
+          <div class="journey-step" data-animate="fade-in-up">
+            <div class="journey-step-number">1</div>
+            <h3 class="journey-step-title">愿景</h3>
+            <p class="journey-step-label">Vision</p>
+          </div>
+          
+          <div class="journey-step" data-animate="fade-in-up">
+            <div class="journey-step-number">2</div>
+            <h3 class="journey-step-title">基础</h3>
+            <p class="journey-step-label">Foundation</p>
+          </div>
+          
+          <div class="journey-step" data-animate="fade-in-up">
+            <div class="journey-step-number">3</div>
+            <h3 class="journey-step-title">验证</h3>
+            <p class="journey-step-label">Validation</p>
+          </div>
+          
+          <div class="journey-step" data-animate="fade-in-up">
+            <div class="journey-step-number">4</div>
+            <h3 class="journey-step-title">执行</h3>
+            <p class="journey-step-label">Betting</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="cta-section section-spacing-lg" id="cta">
+      <div class="container">
+        <div class="cta-content">
+          <h2 class="cta-title">准备好开始了吗？</h2>
+          <p class="cta-description">
+            停止猜测，开始验证。用 StartupOS 让你的创业想法经受住市场的考验。
+          </p>
+          <a href="dashboard.html" class="btn btn-primary btn-lg">
+            进入 Dashboard
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="index.html" class="logo">
+            <span class="logo-mark">SOS</span>
+            <span class="logo-text">StartupOS</span>
+          </a>
+          <p class="footer-tagline">Founder's Operating System</p>
+        </div>
+        
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="dashboard.html" class="footer-link">Dashboard</a>
+          <a href="vision.html" class="footer-link">Vision</a>
+          <a href="foundation.html" class="footer-link">Foundation</a>
+          <a href="validation.html" class="footer-link">Validation</a>
+          <a href="betting-table.html" class="footer-link">Betting</a>
+        </nav>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-credit">
+          StartupOS &copy; 2025<br>
+          Powered by Lean Canvas, Disciplined Entrepreneurship, Shape Up, Click
+        </p>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

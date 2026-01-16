@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="此页面已迁移至创始假设页面 - StartupOS">
+  <meta http-equiv="refresh" content="2;url=foundation.html">
+  <title>页面已迁移 - StartupOS</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071E3'/%3E%3Ctext x='16' y='22' font-family='system-ui' font-size='16' font-weight='bold' fill='white' text-anchor='middle'%3ESOS%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <style>
+    :root {
+      --redirect-bg: #0A0A0F;
+      --redirect-text: #F5F5F7;
+      --redirect-text-muted: #8E8E93;
+      --redirect-accent: #0A84FF;
+    }
+    
+    body {
+      background-color: var(--redirect-bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: var(--space-8);
+    }
+    
+    .redirect-container {
+      text-align: center;
+      max-width: 480px;
+    }
+    
+    .redirect-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-6);
+      color: var(--redirect-accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.95); }
+    }
+    
+    .redirect-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--redirect-text);
+      margin-bottom: var(--space-4);
+    }
+    
+    .redirect-message {
+      font-size: var(--text-base);
+      color: var(--redirect-text-muted);
+      margin-bottom: var(--space-8);
+      line-height: 1.6;
+    }
+    
+    .redirect-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--redirect-accent);
+      text-decoration: none;
+      padding: var(--space-3) var(--space-6);
+      border: 1px solid var(--redirect-accent);
+      border-radius: var(--radius-lg);
+      transition: all 0.2s ease;
+    }
+    
+    .redirect-link:hover {
+      background: rgba(10, 132, 255, 0.1);
+    }
+    
+    .redirect-link svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .redirect-countdown {
+      margin-top: var(--space-8);
+      font-family: 'SF Mono', ui-monospace, monospace;
+      font-size: var(--text-xs);
+      color: var(--redirect-text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="redirect-container">
+    <svg class="redirect-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M13 5H1v14h20V11"/>
+      <path d="M17 1l4 4-4 4"/>
+      <path d="M21 5h-9"/>
+    </svg>
+    
+    <h1 class="redirect-title">页面已迁移</h1>
+    <p class="redirect-message">
+      "真相画布"已升级为"创始假设"(Foundation Sprint)，<br>
+      提供更完整的创业假设定义和验证框架。
+    </p>
+    
+    <a href="foundation.html" class="redirect-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+      </svg>
+      前往创始假设
+    </a>
+    
+    <p class="redirect-countdown">2 秒后自动跳转...</p>
+  </div>
+  
+  <script>
+    setTimeout(function() {
+      window.location.href = 'foundation.html';
+    }, 2000);
+  </script>
+</body>
+</html>

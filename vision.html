@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StartupOS Vision Hub - 定义你的长期愿景和核心聚焦">
+  <title>愿景中心 - StartupOS</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071E3'/%3E%3Ctext x='16' y='22' font-family='system-ui' font-size='16' font-weight='bold' fill='white' text-anchor='middle'%3ESOS%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <style>
+    /* ==========================================================================
+       VISION PAGE - Strategic Vision Command Center
+       Deep dark theme with golden accents for long-term thinking
+       ========================================================================== */
+    
+    :root {
+      /* Vision-specific dark palette */
+      --vision-bg-deep: #0A0A0F;
+      --vision-bg-surface: #12121A;
+      --vision-bg-elevated: #1A1A24;
+      --vision-bg-card: #16161F;
+      --vision-border: rgba(255, 255, 255, 0.06);
+      --vision-border-glow: rgba(10, 132, 255, 0.3);
+      --vision-text-primary: #F5F5F7;
+      --vision-text-secondary: #8E8E93;
+      --vision-text-muted: #636366;
+      
+      /* Vision accent colors */
+      --vision-accent: #0A84FF;
+      --vision-accent-glow: rgba(10, 132, 255, 0.2);
+      --vision-purple: #BF5AF2;
+      --vision-purple-glow: rgba(191, 90, 242, 0.2);
+      --vision-gold: #FFD60A;
+      --vision-gold-glow: rgba(255, 214, 10, 0.15);
+      --vision-success: #30D158;
+      --vision-success-glow: rgba(48, 209, 88, 0.2);
+      
+      /* Typography for vision */
+      --font-display-vision: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      --font-mono-vision: 'SF Mono', ui-monospace, 'Cascadia Code', monospace;
+    }
+    
+    /* Page base */
+    .vision-page {
+      background-color: var(--vision-bg-deep);
+      min-height: 100vh;
+      color: var(--vision-text-primary);
+    }
+    
+    /* Override header for dark theme */
+    .vision-page .site-header {
+      background-color: rgba(10, 10, 15, 0.85);
+      border-bottom-color: var(--vision-border);
+    }
+    
+    .vision-page .logo-mark {
+      color: var(--vision-text-primary);
+    }
+    
+    .vision-page .logo-text {
+      color: var(--vision-text-secondary);
+    }
+    
+    .vision-page .nav-link {
+      color: var(--vision-text-secondary);
+    }
+    
+    .vision-page .nav-link:hover,
+    .vision-page .nav-link.active {
+      color: var(--vision-text-primary);
+      background-color: var(--vision-bg-elevated);
+    }
+    
+    .vision-page .hamburger-line {
+      background-color: var(--vision-text-primary);
+    }
+    
+    .vision-page .mobile-nav {
+      background-color: var(--vision-bg-surface);
+    }
+    
+    .vision-page .mobile-nav-link {
+      color: var(--vision-text-primary);
+    }
+    
+    .vision-page .mobile-nav-link:hover {
+      background-color: var(--vision-bg-elevated);
+    }
+    
+    /* Main content area */
+    .vision-main {
+      padding-top: 84px;
+      padding-bottom: var(--space-16);
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Page header */
+    .vision-header {
+      margin-bottom: var(--space-12);
+      opacity: 0;
+      animation: fadeInDown 0.6s ease forwards;
+      animation-delay: 0.1s;
+    }
+    
+    .vision-title {
+      font-family: var(--font-display-vision);
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--vision-text-primary);
+      margin-bottom: var(--space-2);
+    }
+    
+    .vision-title-en {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--vision-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-3);
+      padding: var(--space-1) var(--space-3);
+      background: var(--vision-accent-glow);
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(10, 132, 255, 0.3);
+    }
+    
+    .vision-subtitle {
+      font-size: var(--text-lg);
+      color: var(--vision-text-secondary);
+      font-weight: 400;
+    }
+    
+    /* Save status indicator */
+    .save-status {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+    
+    .save-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vision-success);
+      box-shadow: 0 0 8px var(--vision-success-glow);
+      transition: all 0.3s ease;
+    }
+    
+    .save-dot.saving {
+      background: var(--vision-gold);
+      box-shadow: 0 0 8px var(--vision-gold-glow);
+      animation: pulse 1s ease infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .save-text {
+      font-size: var(--text-sm);
+      color: var(--vision-text-muted);
+      font-family: var(--font-mono-vision);
+    }
+    
+    /* ==========================================================================
+       VISION CARDS - Module containers
+       ========================================================================== */
+    
+    .vision-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+    
+    .vision-card {
+      background: var(--vision-bg-card);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--vision-border);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    .vision-card:nth-child(1) { animation-delay: 0.2s; }
+    .vision-card:nth-child(2) { animation-delay: 0.3s; }
+    .vision-card:nth-child(3) { animation-delay: 0.4s; }
+    .vision-card:nth-child(4) { animation-delay: 0.5s; }
+    .vision-card:nth-child(5) { animation-delay: 0.6s; }
+    
+    .vision-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--card-accent, var(--vision-border)), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .vision-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, var(--card-glow, transparent) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    
+    .vision-card:hover {
+      border-color: var(--card-accent, var(--vision-border));
+    }
+    
+    .vision-card:hover::before {
+      opacity: 1;
+    }
+    
+    .vision-card:hover::after {
+      opacity: 1;
+    }
+    
+    /* Card variants */
+    .vision-card--focus {
+      --card-accent: var(--vision-accent);
+      --card-glow: var(--vision-accent-glow);
+    }
+    
+    .vision-card--pyramid {
+      --card-accent: var(--vision-purple);
+      --card-glow: var(--vision-purple-glow);
+    }
+    
+    .vision-card--unique {
+      --card-accent: var(--vision-gold);
+      --card-glow: var(--vision-gold-glow);
+    }
+    
+    .vision-card--values {
+      --card-accent: var(--vision-success);
+      --card-glow: var(--vision-success-glow);
+    }
+    
+    .vision-card--marketing {
+      --card-accent: var(--vision-gold);
+      --card-glow: var(--vision-gold-glow);
+      border-left: 3px solid var(--vision-gold);
+    }
+    
+    /* Card header */
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--vision-border);
+    }
+    
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--vision-bg-elevated);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--vision-border);
+      flex-shrink: 0;
+    }
+    
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--card-accent, var(--vision-text-secondary));
+    }
+    
+    .card-titles {
+      flex: 1;
+    }
+    
+    .card-title {
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--vision-text-primary);
+      margin-bottom: var(--space-1);
+    }
+    
+    .card-title-en {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--vision-text-muted);
+    }
+    
+    /* ==========================================================================
+       FORM ELEMENTS - Dark theme inputs
+       ========================================================================== */
+    
+    .vision-input,
+    .vision-textarea {
+      width: 100%;
+      padding: var(--space-4);
+      font-family: var(--font-family);
+      font-size: var(--text-base);
+      line-height: var(--leading-normal);
+      color: var(--vision-text-primary);
+      background-color: var(--vision-bg-elevated);
+      border: 1px solid var(--vision-border);
+      border-radius: var(--radius-lg);
+      transition: all var(--transition-base);
+      resize: vertical;
+    }
+    
+    .vision-input:hover,
+    .vision-textarea:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    
+    .vision-input:focus,
+    .vision-textarea:focus {
+      outline: none;
+      border-color: var(--vision-accent);
+      box-shadow: 0 0 0 3px var(--vision-accent-glow);
+      background-color: var(--vision-bg-surface);
+    }
+    
+    .vision-input::placeholder,
+    .vision-textarea::placeholder {
+      color: var(--vision-text-muted);
+    }
+    
+    .vision-textarea {
+      min-height: 100px;
+    }
+    
+    .vision-textarea-sm {
+      min-height: 72px;
+    }
+    
+    .vision-textarea-lg {
+      min-height: 140px;
+    }
+    
+    /* Form labels */
+    .form-section {
+      margin-bottom: var(--space-6);
+    }
+    
+    .form-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--vision-text-primary);
+      margin-bottom: var(--space-2);
+    }
+    
+    .form-label-sub {
+      font-size: var(--text-sm);
+      font-weight: 400;
+      color: var(--vision-text-muted);
+      margin-left: var(--space-2);
+    }
+    
+    .form-hint {
+      font-size: var(--text-xs);
+      color: var(--vision-text-muted);
+      margin-top: var(--space-2);
+    }
+    
+    /* ==========================================================================
+       MODULE 1: CORE FOCUS
+       ========================================================================== */
+    
+    .focus-sections {
+      display: grid;
+      gap: var(--space-6);
+    }
+    
+    @media (min-width: 768px) {
+      .focus-sections {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    /* ==========================================================================
+       MODULE 2: 10-3-1 GOAL PYRAMID
+       ========================================================================== */
+    
+    .pyramid-visual {
+      display: flex;
+      justify-content: center;
+      margin-bottom: var(--space-8);
+    }
+    
+    .pyramid-svg {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+    }
+    
+    .pyramid-tabs {
+      display: flex;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      padding: var(--space-1);
+      background: var(--vision-bg-elevated);
+      border-radius: var(--radius-lg);
+    }
+    
+    .pyramid-tab {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--vision-text-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      text-align: center;
+    }
+    
+    .pyramid-tab:hover {
+      color: var(--vision-text-secondary);
+    }
+    
+    .pyramid-tab.active {
+      color: var(--vision-text-primary);
+      background: var(--vision-bg-card);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .pyramid-tab-10y.active { color: var(--vision-purple); }
+    .pyramid-tab-3y.active { color: var(--vision-accent); }
+    .pyramid-tab-1y.active { color: var(--vision-success); }
+    
+    .pyramid-content {
+      display: none;
+    }
+    
+    .pyramid-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* 10-Year section */
+    .year-10-section {
+      text-align: center;
+    }
+    
+    .big-vision-input {
+      font-size: var(--text-xl);
+      font-weight: 500;
+      text-align: center;
+      min-height: 120px;
+      background: linear-gradient(135deg, rgba(191, 90, 242, 0.08) 0%, rgba(10, 132, 255, 0.08) 100%);
+      border-color: rgba(191, 90, 242, 0.2);
+    }
+    
+    .big-vision-input:focus {
+      border-color: var(--vision-purple);
+      box-shadow: 0 0 0 3px var(--vision-purple-glow);
+    }
+    
+    .year-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono-vision);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-xl);
+      margin-bottom: var(--space-4);
+    }
+    
+    .year-badge-10 {
+      color: var(--vision-purple);
+      background: var(--vision-purple-glow);
+      border: 1px solid rgba(191, 90, 242, 0.3);
+    }
+    
+    .year-badge-3 {
+      color: var(--vision-accent);
+      background: var(--vision-accent-glow);
+      border: 1px solid rgba(10, 132, 255, 0.3);
+    }
+    
+    .year-badge-1 {
+      color: var(--vision-success);
+      background: var(--vision-success-glow);
+      border: 1px solid rgba(48, 209, 88, 0.3);
+    }
+    
+    /* 3-Year / 1-Year sections */
+    .year-metrics {
+      display: grid;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    
+    @media (min-width: 640px) {
+      .year-metrics {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .metric-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    
+    .metric-input-group label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--vision-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .metric-input {
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-mono-vision);
+      font-size: var(--text-lg);
+      font-weight: 600;
+    }
+    
+    .bullets-section {
+      margin-bottom: var(--space-6);
+    }
+    
+    .bullets-title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--vision-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+    
+    .bullet-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    
+    .bullet-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vision-accent);
+      flex-shrink: 0;
+    }
+    
+    .bullet-input {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+    }
+    
+    /* Goals list for 1-year */
+    .goals-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    
+    .goal-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    
+    .goal-number {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono-vision);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--vision-success);
+      background: var(--vision-success-glow);
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+    }
+    
+    .goal-input {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+    }
+    
+    /* ==========================================================================
+       MODULE 3: THREE UNIQUES
+       ========================================================================== */
+    
+    .uniques-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+    
+    .unique-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+    
+    .unique-badge {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display-vision);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, var(--vision-accent) 0%, var(--vision-purple) 100%);
+      border-radius: var(--radius-xl);
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3);
+    }
+    
+    .unique-input {
+      flex: 1;
+      min-height: 80px;
+      font-size: var(--text-lg);
+    }
+    
+    /* ==========================================================================
+       MODULE 4: CORE VALUES
+       ========================================================================== */
+    
+    .values-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    
+    .value-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    
+    .value-badge {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono-vision);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--vision-success);
+      background: var(--vision-bg-elevated);
+      border: 1px solid var(--vision-success);
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+    }
+    
+    .value-input {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+    }
+    
+    .add-value-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--vision-text-muted);
+      background: var(--vision-bg-elevated);
+      border: 1px dashed var(--vision-border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-base);
+    }
+    
+    .add-value-btn:hover {
+      color: var(--vision-success);
+      border-color: var(--vision-success);
+      background: var(--vision-success-glow);
+    }
+    
+    .add-value-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    /* ==========================================================================
+       MODULE 5: MARKETING STRATEGY
+       ========================================================================== */
+    
+    .marketing-sections {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+    
+    .marketing-section {
+      padding-left: var(--space-4);
+      border-left: 2px solid var(--vision-gold);
+    }
+    
+    .marketing-label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--vision-gold);
+      margin-bottom: var(--space-2);
+    }
+    
+    /* ==========================================================================
+       FOOTER - Dark variant
+       ========================================================================== */
+    
+    .vision-page .site-footer {
+      background-color: var(--vision-bg-surface);
+      border-top-color: var(--vision-border);
+    }
+    
+    .vision-page .footer-link {
+      color: var(--vision-text-muted);
+    }
+    
+    .vision-page .footer-link:hover {
+      color: var(--vision-accent);
+    }
+    
+    .vision-page .footer-tagline,
+    .vision-page .footer-credit {
+      color: var(--vision-text-muted);
+    }
+    
+    .vision-page .footer-bottom {
+      border-top-color: var(--vision-border);
+    }
+    
+    /* ==========================================================================
+       AMBIENT EFFECTS
+       ========================================================================== */
+    
+    .vision-ambient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 500px;
+      background: 
+        radial-gradient(ellipse 60% 40% at 20% -10%, rgba(191, 90, 242, 0.06) 0%, transparent 100%),
+        radial-gradient(ellipse 80% 50% at 80% -20%, rgba(10, 132, 255, 0.08) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    /* Noise texture overlay */
+    .vision-page::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    /* ==========================================================================
+       RESPONSIVE ADJUSTMENTS
+       ========================================================================== */
+    
+    @media (max-width: 640px) {
+      .vision-card {
+        padding: var(--space-6);
+      }
+      
+      .card-header {
+        flex-wrap: wrap;
+      }
+      
+      .unique-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .unique-badge {
+        width: 40px;
+        height: 40px;
+        font-size: var(--text-xl);
+      }
+      
+      .pyramid-tabs {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body class="vision-page">
+  <div class="vision-ambient"></div>
+  
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-mark">SOS</span>
+          <span class="logo-text">StartupOS</span>
+        </a>
+        
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="vision.html" class="nav-link active">Vision</a>
+          <a href="foundation.html" class="nav-link">Foundation</a>
+          <a href="validation.html" class="nav-link">Validation</a>
+          <a href="betting-table.html" class="nav-link">Betting</a>
+        </nav>
+        
+        <button 
+          class="mobile-menu-btn" 
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <div class="hamburger">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="mobile-nav-links">
+      <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
+      <a href="vision.html" class="mobile-nav-link">Vision</a>
+      <a href="foundation.html" class="mobile-nav-link">Foundation</a>
+      <a href="validation.html" class="mobile-nav-link">Validation</a>
+      <a href="betting-table.html" class="mobile-nav-link">Betting</a>
+    </div>
+  </nav>
+  
+  <main class="vision-main">
+    <div class="container">
+      <!-- Page Header -->
+      <header class="vision-header">
+        <span class="vision-title-en">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="6"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+          Vision Hub
+        </span>
+        <h1 class="vision-title">愿景中心</h1>
+        <p class="vision-subtitle">定义你的长期愿景和核心聚焦</p>
+        <div class="save-status">
+          <div class="save-dot" id="saveDot"></div>
+          <span class="save-text" id="saveText">已保存</span>
+        </div>
+      </header>
+      
+      <div class="vision-grid">
+        <!-- MODULE 1: Core Focus -->
+        <section class="vision-card vision-card--focus" aria-labelledby="core-focus-title">
+          <header class="card-header">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+            </div>
+            <div class="card-titles">
+              <h2 class="card-title" id="core-focus-title">核心聚焦</h2>
+              <span class="card-title-en">Core Focus</span>
+            </div>
+          </header>
+          
+          <div class="focus-sections">
+            <div class="form-section">
+              <label class="form-label" for="purpose">
+                使命/热情
+                <span class="form-label-sub">Purpose/Cause/Passion</span>
+              </label>
+              <textarea 
+                id="purpose" 
+                class="vision-textarea vision-textarea-lg vision-input-autosave" 
+                placeholder="例如：让每一个有梦想的年轻人都能获得创业成功所需的方法论和工具支持，降低创业门槛，提高成功概率。"
+                rows="4"
+              ></textarea>
+              <p class="form-hint">这是驱动你和团队每天起床工作的根本原因</p>
+            </div>
+            
+            <div class="form-section">
+              <label class="form-label" for="niche">
+                利基市场
+                <span class="form-label-sub">Our Niche</span>
+              </label>
+              <textarea 
+                id="niche" 
+                class="vision-textarea vision-textarea-sm vision-input-autosave" 
+                placeholder="例如：为中国高校创业团队提供精益创业+设计冲刺的整合验证工具"
+                rows="3"
+              ></textarea>
+              <p class="form-hint">你们在这个领域可以做到世界第一</p>
+            </div>
+          </div>
+        </section>
+        
+        <!-- MODULE 2: 10-3-1 Goal Pyramid -->
+        <section class="vision-card vision-card--pyramid" aria-labelledby="pyramid-title">
+          <header class="card-header">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 22h20L12 2z"/>
+                <path d="M12 8v8"/>
+                <path d="M8 16h8"/>
+              </svg>
+            </div>
+            <div class="card-titles">
+              <h2 class="card-title" id="pyramid-title">目标金字塔</h2>
+              <span class="card-title-en">10-3-1 Targets</span>
+            </div>
+          </header>
+          
+          <!-- Pyramid Visual -->
+          <div class="pyramid-visual">
+            <svg class="pyramid-svg" viewBox="0 0 200 160" fill="none">
+              <!-- 10 Year - Top -->
+              <path d="M100 10 L140 60 H60 Z" fill="rgba(191, 90, 242, 0.2)" stroke="rgba(191, 90, 242, 0.5)" stroke-width="1"/>
+              <text x="100" y="42" text-anchor="middle" fill="#BF5AF2" font-size="11" font-weight="600">10年</text>
+              
+              <!-- 3 Year - Middle -->
+              <path d="M60 65 L140 65 L160 110 H40 Z" fill="rgba(10, 132, 255, 0.15)" stroke="rgba(10, 132, 255, 0.4)" stroke-width="1"/>
+              <text x="100" y="92" text-anchor="middle" fill="#0A84FF" font-size="11" font-weight="600">3年</text>
+              
+              <!-- 1 Year - Bottom -->
+              <path d="M40 115 L160 115 L180 155 H20 Z" fill="rgba(48, 209, 88, 0.12)" stroke="rgba(48, 209, 88, 0.35)" stroke-width="1"/>
+              <text x="100" y="140" text-anchor="middle" fill="#30D158" font-size="11" font-weight="600">1年</text>
+            </svg>
+          </div>
+          
+          <!-- Tabs -->
+          <div class="pyramid-tabs" role="tablist">
+            <button class="pyramid-tab pyramid-tab-10y active" role="tab" aria-selected="true" data-tab="10y">10年目标</button>
+            <button class="pyramid-tab pyramid-tab-3y" role="tab" aria-selected="false" data-tab="3y">3年图景</button>
+            <button class="pyramid-tab pyramid-tab-1y" role="tab" aria-selected="false" data-tab="1y">1年计划</button>
+          </div>
+          
+          <!-- 10-Year Content -->
+          <div class="pyramid-content active" id="tab-10y" role="tabpanel">
+            <div class="year-10-section">
+              <div class="year-badge year-badge-10">10Y</div>
+              <label class="form-label" for="vision-10y">长期愿景目标</label>
+              <textarea 
+                id="vision-10y" 
+                class="vision-textarea big-vision-input vision-input-autosave" 
+                placeholder="例如：成为中国高校创业教育的基础设施，每年帮助10万+创业团队完成市场验证"
+                rows="4"
+              ></textarea>
+              <p class="form-hint">这是你们想要在10年后实现的终极状态</p>
+            </div>
+          </div>
+          
+          <!-- 3-Year Content -->
+          <div class="pyramid-content" id="tab-3y" role="tabpanel">
+            <div class="year-badge year-badge-3">3Y</div>
+            
+            <div class="year-metrics">
+              <div class="metric-input-group">
+                <label for="date-3y">目标日期</label>
+                <input type="text" id="date-3y" class="vision-input metric-input vision-input-autosave" placeholder="2028年12月">
+              </div>
+              <div class="metric-input-group">
+                <label for="revenue-3y">年收入</label>
+                <input type="text" id="revenue-3y" class="vision-input metric-input vision-input-autosave" placeholder="¥5,000,000">
+              </div>
+              <div class="metric-input-group">
+                <label for="profit-3y">年利润</label>
+                <input type="text" id="profit-3y" class="vision-input metric-input vision-input-autosave" placeholder="¥1,500,000">
+              </div>
+            </div>
+            
+            <div class="bullets-section">
+              <h4 class="bullets-title">3年后的样子是什么？</h4>
+              <div class="bullet-row">
+                <div class="bullet-dot"></div>
+                <input type="text" class="vision-input bullet-input vision-input-autosave" placeholder="例如：服务超过500所高校的创业孵化器">
+              </div>
+              <div class="bullet-row">
+                <div class="bullet-dot"></div>
+                <input type="text" class="vision-input bullet-input vision-input-autosave" placeholder="例如：累计帮助3万+团队完成产品验证">
+              </div>
+              <div class="bullet-row">
+                <div class="bullet-dot"></div>
+                <input type="text" class="vision-input bullet-input vision-input-autosave" placeholder="例如：建立完整的导师和投资人网络">
+              </div>
+              <div class="bullet-row">
+                <div class="bullet-dot"></div>
+                <input type="text" class="vision-input bullet-input vision-input-autosave" placeholder="例如：出版创业方法论系列书籍">
+              </div>
+              <div class="bullet-row">
+                <div class="bullet-dot"></div>
+                <input type="text" class="vision-input bullet-input vision-input-autosave" placeholder="例如：团队规模达到50人">
+              </div>
+            </div>
+          </div>
+          
+          <!-- 1-Year Content -->
+          <div class="pyramid-content" id="tab-1y" role="tabpanel">
+            <div class="year-badge year-badge-1">1Y</div>
+            
+            <div class="year-metrics">
+              <div class="metric-input-group">
+                <label for="date-1y">目标日期</label>
+                <input type="text" id="date-1y" class="vision-input metric-input vision-input-autosave" placeholder="2026年12月">
+              </div>
+              <div class="metric-input-group">
+                <label for="revenue-1y">年收入</label>
+                <input type="text" id="revenue-1y" class="vision-input metric-input vision-input-autosave" placeholder="¥800,000">
+              </div>
+              <div class="metric-input-group">
+                <label for="profit-1y">年利润</label>
+                <input type="text" id="profit-1y" class="vision-input metric-input vision-input-autosave" placeholder="¥200,000">
+              </div>
+            </div>
+            
+            <div class="form-section">
+              <h4 class="bullets-title">今年必须完成的7个目标 (Rocks)</h4>
+              <div class="goals-list">
+                <div class="goal-row">
+                  <span class="goal-number">1</span>
+                  <input type="text" class="vision-input goal-input vision-input-autosave" placeholder="例如：完成产品MVP并获得100个付费用户">
+                </div>
+                <div class="goal-row">
+                  <span class="goal-number">2</span>
+                  <input type="text" class="vision-input goal-input vision-input-autosave" placeholder="例如：与10所高校建立合作关系">
+                </div>
+                <div class="goal-row">
+                  <span class="goal-number">3</span>
+                  <input type="text" class="vision-input goal-input vision-input-autosave" placeholder="例如：完成种子轮融资500万">
+                </div>
+                <div class="goal-row">
+                  <span class="goal-number">4</span>
+                  <input type="text" class="vision-input goal-input vision-input-autosave" placeholder="例如：搭建5人核心团队">
+                </div>
+                <div class="goal-row">
+                  <span class="goal-number">5</span>
+                  <input type="text" class="vision-input goal-input vision-input-autosave" placeholder="例如：用户满意度达到90%以上">
+                </div>
+                <div class="goal-row">
+                  <span class="goal-number">6</span>
+                  <input type="text" class="vision-input goal-input vision-input-autosave" placeholder="例如：建立标准化的验证流程SOP">
+                </div>
+                <div class="goal-row">
+                  <span class="goal-number">7</span>
+                  <input type="text" class="vision-input goal-input vision-input-autosave" placeholder="例如：举办3场线下创业工作坊">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- MODULE 3: Three Uniques -->
+        <section class="vision-card vision-card--unique" aria-labelledby="uniques-title">
+          <header class="card-header">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+              </svg>
+            </div>
+            <div class="card-titles">
+              <h2 class="card-title" id="uniques-title">三大独特优势</h2>
+              <span class="card-title-en">Three Uniques</span>
+            </div>
+          </header>
+          
+          <p class="form-hint" style="margin-bottom: var(--space-6);">
+            这是你们区别于所有竞争对手的核心差异化因素，三者结合必须是独一无二的
+          </p>
+          
+          <div class="uniques-list">
+            <div class="unique-row">
+              <div class="unique-badge">1</div>
+              <textarea 
+                class="vision-textarea unique-input vision-input-autosave" 
+                placeholder="我们的第一大独特优势...&#10;&#10;例如：融合精益创业+设计冲刺+EOS的整合方法论，而非单一框架"
+              ></textarea>
+            </div>
+            <div class="unique-row">
+              <div class="unique-badge">2</div>
+              <textarea 
+                class="vision-textarea unique-input vision-input-autosave" 
+                placeholder="我们的第二大独特优势...&#10;&#10;例如：专为中国高校创业团队设计，理解他们的资源限制和文化背景"
+              ></textarea>
+            </div>
+            <div class="unique-row">
+              <div class="unique-badge">3</div>
+              <textarea 
+                class="vision-textarea unique-input vision-input-autosave" 
+                placeholder="我们的第三大独特优势...&#10;&#10;例如：AI驱动的实时验证辅助，让小团队也能快速完成市场研究"
+              ></textarea>
+            </div>
+          </div>
+        </section>
+        
+        <!-- MODULE 4: Core Values -->
+        <section class="vision-card vision-card--values" aria-labelledby="values-title">
+          <header class="card-header">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </div>
+            <div class="card-titles">
+              <h2 class="card-title" id="values-title">核心价值观</h2>
+              <span class="card-title-en">Core Values</span>
+            </div>
+          </header>
+          
+          <p class="form-hint" style="margin-bottom: var(--space-6);">
+            这是指导团队行为和决策的根本原则，通常3-5条最佳
+          </p>
+          
+          <div class="values-list" id="valuesList">
+            <div class="value-row">
+              <span class="value-badge">1</span>
+              <input type="text" class="vision-input value-input vision-input-autosave" placeholder="例如：用户第一 - 一切决策以用户价值为导向">
+            </div>
+            <div class="value-row">
+              <span class="value-badge">2</span>
+              <input type="text" class="vision-input value-input vision-input-autosave" placeholder="例如：快速验证 - 用最小成本验证最大风险">
+            </div>
+            <div class="value-row">
+              <span class="value-badge">3</span>
+              <input type="text" class="vision-input value-input vision-input-autosave" placeholder="例如：透明协作 - 信息共享，坦诚沟通">
+            </div>
+            <div class="value-row">
+              <span class="value-badge">4</span>
+              <input type="text" class="vision-input value-input vision-input-autosave" placeholder="例如：持续学习 - 保持好奇心和成长心态">
+            </div>
+            <div class="value-row">
+              <span class="value-badge">5</span>
+              <input type="text" class="vision-input value-input vision-input-autosave" placeholder="例如：结果导向 - 用数据说话，用成果证明">
+            </div>
+          </div>
+          
+          <button class="add-value-btn" id="addValueBtn" aria-label="添加更多价值观">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            添加价值观
+          </button>
+        </section>
+        
+        <!-- MODULE 5: Marketing Strategy -->
+        <section class="vision-card vision-card--marketing" aria-labelledby="marketing-title">
+          <header class="card-header">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <div class="card-titles">
+              <h2 class="card-title" id="marketing-title">营销策略</h2>
+              <span class="card-title-en">Marketing Strategy</span>
+            </div>
+          </header>
+          
+          <div class="marketing-sections">
+            <div class="marketing-section">
+              <label class="marketing-label" for="target-market">目标市场 Target Market</label>
+              <textarea 
+                id="target-market" 
+                class="vision-textarea vision-input-autosave" 
+                placeholder="例如：中国一二线城市高校中，正在参加创业比赛或孵化器项目的本科生和研究生创业团队。他们有想法有热情，但缺乏系统的验证方法论和实操工具。"
+                rows="4"
+              ></textarea>
+            </div>
+            
+            <div class="marketing-section">
+              <label class="marketing-label" for="proven-process">验证过程 Proven Process</label>
+              <input 
+                type="text" 
+                id="proven-process" 
+                class="vision-input vision-input-autosave" 
+                placeholder="例如：72小时闪电验证法™"
+              >
+              <p class="form-hint">给你的独特方法论起一个名字，让它成为你的品牌资产</p>
+            </div>
+            
+            <div class="marketing-section">
+              <label class="marketing-label" for="guarantee">承诺 Guarantee</label>
+              <textarea 
+                id="guarantee" 
+                class="vision-textarea vision-input-autosave" 
+                placeholder="例如：使用我们的72小时闪电验证法，你将在一周内明确知道你的创业想法是否值得继续投入，否则全额退款。"
+                rows="3"
+              ></textarea>
+              <p class="form-hint">一个强有力的承诺能降低用户的决策风险</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="index.html" class="logo">
+            <span class="logo-mark">SOS</span>
+            <span class="logo-text">StartupOS</span>
+          </a>
+          <p class="footer-tagline">Founder's Operating System</p>
+        </div>
+        
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="dashboard.html" class="footer-link">Dashboard</a>
+          <a href="vision.html" class="footer-link">Vision</a>
+          <a href="foundation.html" class="footer-link">Foundation</a>
+          <a href="validation.html" class="footer-link">Validation</a>
+          <a href="betting-table.html" class="footer-link">Betting</a>
+        </nav>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-credit">
+          StartupOS &copy; 2025<br>
+          Powered by EOS V/TO, Lean Canvas, Disciplined Entrepreneurship, Shape Up
+        </p>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="assets/js/main.js"></script>
+  <script>
+    (function() {
+      'use strict';
+      
+      // ==========================================================================
+      // PYRAMID TABS
+      // ==========================================================================
+      
+      const pyramidTabs = document.querySelectorAll('.pyramid-tab');
+      const pyramidContents = document.querySelectorAll('.pyramid-content');
+      
+      pyramidTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Remove active from all tabs and contents
+          pyramidTabs.forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          pyramidContents.forEach(c => c.classList.remove('active'));
+          
+          // Add active to clicked tab
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          
+          // Show corresponding content
+          const tabId = tab.dataset.tab;
+          const content = document.getElementById(`tab-${tabId}`);
+          if (content) {
+            content.classList.add('active');
+          }
+        });
+      });
+      
+      // ==========================================================================
+      // ADD VALUE BUTTON
+      // ==========================================================================
+      
+      const addValueBtn = document.getElementById('addValueBtn');
+      const valuesList = document.getElementById('valuesList');
+      let valueCount = 5;
+      const maxValues = 7;
+      
+      if (addValueBtn && valuesList) {
+        addValueBtn.addEventListener('click', () => {
+          if (valueCount >= maxValues) {
+            addValueBtn.style.display = 'none';
+            return;
+          }
+          
+          valueCount++;
+          
+          const newRow = document.createElement('div');
+          newRow.className = 'value-row';
+          newRow.innerHTML = `
+            <span class="value-badge">${valueCount}</span>
+            <input type="text" class="vision-input value-input vision-input-autosave" placeholder="添加新的核心价值观...">
+          `;
+          
+          valuesList.appendChild(newRow);
+          
+          // Focus the new input
+          const newInput = newRow.querySelector('input');
+          if (newInput) {
+            newInput.focus();
+            // Add autosave listener to new input
+            newInput.addEventListener('input', handleInputChange);
+          }
+          
+          if (valueCount >= maxValues) {
+            addValueBtn.style.display = 'none';
+          }
+        });
+      }
+      
+      // ==========================================================================
+      // AUTO-SAVE VISUAL FEEDBACK
+      // ==========================================================================
+      
+      const saveDot = document.getElementById('saveDot');
+      const saveText = document.getElementById('saveText');
+      let saveTimeout = null;
+      
+      function showSaving() {
+        if (saveDot && saveText) {
+          saveDot.classList.add('saving');
+          saveText.textContent = '保存中...';
+        }
+      }
+      
+      function showSaved() {
+        if (saveDot && saveText) {
+          saveDot.classList.remove('saving');
+          saveText.textContent = '已保存';
+        }
+      }
+      
+      function handleInputChange() {
+        showSaving();
+        
+        // Clear previous timeout
+        if (saveTimeout) {
+          clearTimeout(saveTimeout);
+        }
+        
+        // Simulate save after 800ms of no input
+        saveTimeout = setTimeout(() => {
+          // In a real app, you would save to backend/localStorage here
+          console.log('Vision data saved (simulated)');
+          showSaved();
+        }, 800);
+      }
+      
+      // Add listeners to all autosave inputs
+      const autosaveInputs = document.querySelectorAll('.vision-input-autosave');
+      autosaveInputs.forEach(input => {
+        input.addEventListener('input', handleInputChange);
+      });
+      
+      // ==========================================================================
+      // KEYBOARD NAVIGATION FOR TABS
+      // ==========================================================================
+      
+      const tabList = document.querySelector('.pyramid-tabs');
+      
+      if (tabList) {
+        tabList.addEventListener('keydown', (e) => {
+          const tabs = Array.from(pyramidTabs);
+          const currentIndex = tabs.findIndex(tab => tab === document.activeElement);
+          
+          if (currentIndex === -1) return;
+          
+          let newIndex = currentIndex;
+          
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            newIndex = (currentIndex + 1) % tabs.length;
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+          } else if (e.key === 'Home') {
+            e.preventDefault();
+            newIndex = 0;
+          } else if (e.key === 'End') {
+            e.preventDefault();
+            newIndex = tabs.length - 1;
+          }
+          
+          if (newIndex !== currentIndex) {
+            tabs[newIndex].focus();
+            tabs[newIndex].click();
+          }
+        });
+      }
+      
+    })();
+  </script>
+</body>
+</html>

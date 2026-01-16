@@ -1,0 +1,3107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StartupOS Validation Hub - 先不写代码，找到产品市场共鸣的'点击时刻'">
+  <title>验证中心 - StartupOS</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071E3'/%3E%3Ctext x='16' y='22' font-family='system-ui' font-size='16' font-weight='bold' fill='white' text-anchor='middle'%3ESOS%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <style>
+    /* ==========================================================================
+       VALIDATION HUB - Click Moment Discovery
+       Dark theme with emphasis on tracking real commitments
+       ========================================================================== */
+    
+    :root {
+      /* Dashboard-specific dark palette */
+      --dash-bg-deep: #0A0A0F;
+      --dash-bg-surface: #12121A;
+      --dash-bg-elevated: #1A1A24;
+      --dash-bg-card: #16161F;
+      --dash-border: rgba(255, 255, 255, 0.06);
+      --dash-border-glow: rgba(0, 113, 227, 0.3);
+      --dash-text-primary: #F5F5F7;
+      --dash-text-secondary: #8E8E93;
+      --dash-text-muted: #636366;
+      
+      /* Metric accent colors */
+      --metric-warning: #FF9F0A;
+      --metric-warning-glow: rgba(255, 159, 10, 0.2);
+      --metric-success: #30D158;
+      --metric-success-glow: rgba(48, 209, 88, 0.2);
+      --metric-accent: #0A84FF;
+      --metric-accent-glow: rgba(10, 132, 255, 0.2);
+      --metric-purple: #BF5AF2;
+      --metric-purple-glow: rgba(191, 90, 242, 0.2);
+      --metric-pink: #FF375F;
+      --metric-pink-glow: rgba(255, 55, 95, 0.2);
+      
+      /* Typography for dashboard */
+      --font-display-dashboard: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      --font-mono-dashboard: 'SF Mono', ui-monospace, 'Cascadia Code', monospace;
+    }
+    
+    /* Page base */
+    .validation-page {
+      background-color: var(--dash-bg-deep);
+      min-height: 100vh;
+      color: var(--dash-text-primary);
+    }
+    
+    /* Override header for dark theme */
+    .validation-page .site-header {
+      background-color: rgba(10, 10, 15, 0.85);
+      border-bottom-color: var(--dash-border);
+    }
+    
+    .validation-page .logo-mark {
+      color: var(--dash-text-primary);
+    }
+    
+    .validation-page .logo-text {
+      color: var(--dash-text-secondary);
+    }
+    
+    .validation-page .nav-link {
+      color: var(--dash-text-secondary);
+    }
+    
+    .validation-page .nav-link:hover,
+    .validation-page .nav-link.active {
+      color: var(--dash-text-primary);
+      background-color: var(--dash-bg-elevated);
+    }
+    
+    .validation-page .hamburger-line {
+      background-color: var(--dash-text-primary);
+    }
+    
+    .validation-page .mobile-nav {
+      background-color: var(--dash-bg-surface);
+    }
+    
+    .validation-page .mobile-nav-link {
+      color: var(--dash-text-primary);
+    }
+    
+    .validation-page .mobile-nav-link:hover {
+      background-color: var(--dash-bg-elevated);
+    }
+    
+    /* Main content area */
+    .validation-main {
+      padding-top: 84px;
+      padding-bottom: var(--space-16);
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Page header */
+    .validation-header {
+      margin-bottom: var(--space-10);
+      opacity: 0;
+      animation: fadeInDown 0.6s ease forwards;
+      animation-delay: 0.1s;
+    }
+    
+    .validation-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-mono-dashboard);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--metric-purple);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: var(--space-3);
+      padding: var(--space-1) var(--space-3);
+      background: var(--metric-purple-glow);
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(191, 90, 242, 0.3);
+    }
+    
+    .validation-eyebrow svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--metric-purple);
+    }
+    
+    .validation-title {
+      font-family: var(--font-display-dashboard);
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--dash-text-primary);
+      margin-bottom: var(--space-2);
+    }
+    
+    .validation-subtitle {
+      font-size: var(--text-lg);
+      color: var(--dash-text-secondary);
+      font-weight: 400;
+      max-width: 520px;
+    }
+    
+    /* ==========================================================================
+       MVP THRESHOLD CARD - Hero Section
+       ========================================================================== */
+    
+    .mvp-threshold-card {
+      background: linear-gradient(135deg, var(--dash-bg-card) 0%, rgba(22, 22, 31, 0.8) 100%);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-10);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--dash-border);
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.2s;
+    }
+    
+    .mvp-threshold-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--metric-warning), var(--metric-success));
+    }
+    
+    .mvp-threshold-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--metric-warning-glow) 0%, transparent 60%);
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    
+    .mvp-threshold-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: var(--space-6);
+    }
+    
+    @media (min-width: 768px) {
+      .mvp-threshold-content {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+    }
+    
+    .mvp-threshold-info h2 {
+      font-family: var(--font-display-dashboard);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    
+    .mvp-threshold-info h2 svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--metric-warning);
+    }
+    
+    .mvp-big-number {
+      font-family: var(--font-display-dashboard);
+      font-size: clamp(4rem, 12vw, 6rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      background: linear-gradient(180deg, var(--dash-text-primary) 0%, var(--dash-text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-3);
+    }
+    
+    .mvp-big-number span {
+      font-size: 0.5em;
+      color: var(--dash-text-muted);
+      -webkit-text-fill-color: var(--dash-text-muted);
+    }
+    
+    .mvp-progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--dash-bg-elevated);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-bottom: var(--space-4);
+    }
+    
+    .mvp-progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--metric-warning), var(--metric-success));
+      border-radius: var(--radius-full);
+      animation: progressExpand 1s ease-out forwards;
+      animation-delay: 0.5s;
+      box-shadow: 0 0 16px var(--metric-warning-glow);
+    }
+    
+    @keyframes progressExpand {
+      to { width: 70%; }
+    }
+    
+    .mvp-threshold-text {
+      font-size: var(--text-sm);
+      color: var(--dash-text-secondary);
+      line-height: 1.6;
+      max-width: 400px;
+    }
+    
+    .mvp-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono-dashboard);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    
+    .mvp-status-badge--warning {
+      background: var(--metric-warning-glow);
+      color: var(--metric-warning);
+      border: 1px solid rgba(255, 159, 10, 0.3);
+    }
+    
+    .mvp-status-badge--success {
+      background: var(--metric-success-glow);
+      color: var(--metric-success);
+      border: 1px solid rgba(48, 209, 88, 0.3);
+    }
+    
+    .mvp-status-badge svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    /* Pulse animation for status */
+    .mvp-status-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+    
+    /* ==========================================================================
+       COMMITMENT TRACKER - Counter Cards + List
+       ========================================================================== */
+    
+    .commitment-section {
+      margin-bottom: var(--space-10);
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.3s;
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-6);
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+    
+    .section-title {
+      font-family: var(--font-display-dashboard);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+    }
+    
+    /* Counter Cards Grid */
+    .counter-grid {
+      display: grid;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    
+    @media (min-width: 640px) {
+      .counter-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .counter-card {
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .counter-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, var(--counter-glow, transparent) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .counter-card:hover,
+    .counter-card.active {
+      border-color: var(--counter-accent, var(--dash-border));
+      transform: translateY(-2px);
+    }
+    
+    .counter-card:hover::before,
+    .counter-card.active::before {
+      opacity: 1;
+    }
+    
+    .counter-card--preorder {
+      --counter-accent: var(--metric-success);
+      --counter-glow: var(--metric-success-glow);
+    }
+    
+    .counter-card--email {
+      --counter-accent: var(--metric-accent);
+      --counter-glow: var(--metric-accent-glow);
+    }
+    
+    .counter-card--referral {
+      --counter-accent: var(--metric-purple);
+      --counter-glow: var(--metric-purple-glow);
+    }
+    
+    .counter-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dash-bg-elevated);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+      border: 1px solid var(--dash-border);
+    }
+    
+    .counter-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--counter-accent, var(--dash-text-secondary));
+    }
+    
+    .counter-number {
+      font-family: var(--font-display-dashboard);
+      font-size: clamp(2.5rem, 8vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--counter-accent, var(--dash-text-primary));
+      margin-bottom: var(--space-2);
+      text-shadow: 0 0 30px var(--counter-glow, transparent);
+    }
+    
+    .counter-label {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--dash-text-secondary);
+    }
+    
+    /* Commitment List */
+    .commitment-list {
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--dash-border);
+      overflow: hidden;
+    }
+    
+    .commitment-list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--dash-border);
+      background: var(--dash-bg-elevated);
+    }
+    
+    .commitment-filter-label {
+      font-size: var(--text-sm);
+      color: var(--dash-text-muted);
+    }
+    
+    .commitment-filter-badge {
+      font-family: var(--font-mono-dashboard);
+      font-size: var(--text-xs);
+      padding: var(--space-1) var(--space-2);
+      background: var(--metric-accent-glow);
+      color: var(--metric-accent);
+      border-radius: var(--radius-sm);
+    }
+    
+    .commitment-items {
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    
+    .commitment-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--dash-border);
+      transition: background-color var(--transition-base);
+    }
+    
+    .commitment-item:last-child {
+      border-bottom: none;
+    }
+    
+    .commitment-item:hover {
+      background: var(--dash-bg-elevated);
+    }
+    
+    .commitment-type-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dash-bg-surface);
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+      font-size: var(--text-base);
+    }
+    
+    .commitment-details {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .commitment-contact {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--dash-text-primary);
+      margin-bottom: var(--space-1);
+    }
+    
+    .commitment-note {
+      font-size: var(--text-sm);
+      color: var(--dash-text-secondary);
+      font-style: italic;
+    }
+    
+    .commitment-date {
+      font-family: var(--font-mono-dashboard);
+      font-size: var(--text-xs);
+      color: var(--dash-text-muted);
+      white-space: nowrap;
+    }
+    
+    /* ==========================================================================
+       COLD SCRIPT BUILDER - Tabbed Section
+       ========================================================================== */
+    
+    .script-section {
+      margin-bottom: var(--space-10);
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.4s;
+    }
+    
+    .script-card {
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-2xl);
+      border: 1px solid var(--dash-border);
+      overflow: hidden;
+    }
+    
+    .script-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--dash-border);
+      background: var(--dash-bg-elevated);
+    }
+    
+    .script-header svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--metric-pink);
+    }
+    
+    .script-header-title {
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+    }
+    
+    /* Script Tabs */
+    .script-tabs {
+      display: flex;
+      gap: var(--space-2);
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--dash-border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .script-tab {
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--dash-text-secondary);
+      background: transparent;
+      border: 1px solid var(--dash-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      white-space: nowrap;
+    }
+    
+    .script-tab:hover {
+      color: var(--dash-text-primary);
+      border-color: var(--metric-pink);
+    }
+    
+    .script-tab.active {
+      color: var(--metric-pink);
+      background: var(--metric-pink-glow);
+      border-color: var(--metric-pink);
+    }
+    
+    /* Script Content */
+    .script-content {
+      padding: var(--space-6);
+    }
+    
+    .script-textarea {
+      width: 100%;
+      min-height: 400px;
+      background: var(--dash-bg-deep);
+      border: 1px solid var(--dash-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      font-family: var(--font-mono-dashboard);
+      font-size: var(--text-sm);
+      line-height: 1.8;
+      color: var(--dash-text-primary);
+      resize: vertical;
+      transition: border-color var(--transition-base);
+    }
+    
+    .script-textarea:focus {
+      outline: none;
+      border-color: var(--metric-pink);
+      box-shadow: 0 0 0 3px var(--metric-pink-glow);
+    }
+    
+    .script-textarea::placeholder {
+      color: var(--dash-text-muted);
+    }
+    
+    .script-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding: var(--space-4) var(--space-6);
+      border-top: 1px solid var(--dash-border);
+      background: var(--dash-bg-elevated);
+    }
+    
+    /* ==========================================================================
+       INTERVIEW LOG - Timeline Style
+       ========================================================================== */
+    
+    .interview-section {
+      margin-bottom: var(--space-10);
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.5s;
+    }
+    
+    .interview-card {
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-2xl);
+      border: 1px solid var(--dash-border);
+      overflow: hidden;
+    }
+    
+    .interview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--dash-border);
+      background: var(--dash-bg-elevated);
+    }
+    
+    .interview-header-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    
+    .interview-header svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--metric-accent);
+    }
+    
+    .interview-header-title {
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+    }
+    
+    .interview-count-badge {
+      font-family: var(--font-mono-dashboard);
+      font-size: var(--text-xs);
+      padding: var(--space-1) var(--space-3);
+      background: var(--metric-accent-glow);
+      color: var(--metric-accent);
+      border-radius: var(--radius-full);
+    }
+    
+    .interview-list {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    
+    .interview-item {
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--dash-border);
+      cursor: pointer;
+      transition: background-color var(--transition-base);
+    }
+    
+    .interview-item:last-child {
+      border-bottom: none;
+    }
+    
+    .interview-item:hover {
+      background: var(--dash-bg-elevated);
+    }
+    
+    .interview-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-3);
+    }
+    
+    .interview-item-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    
+    .interview-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--metric-accent) 0%, var(--metric-purple) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: white;
+    }
+    
+    .interview-name {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+    }
+    
+    .interview-meta {
+      font-size: var(--text-xs);
+      color: var(--dash-text-muted);
+    }
+    
+    .interview-date {
+      font-family: var(--font-mono-dashboard);
+      font-size: var(--text-xs);
+      color: var(--dash-text-muted);
+    }
+    
+    .interview-findings {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      padding-left: calc(36px + var(--space-3));
+    }
+    
+    .interview-finding {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--dash-text-secondary);
+      line-height: 1.5;
+    }
+    
+    .interview-finding-icon {
+      flex-shrink: 0;
+      font-size: var(--text-base);
+    }
+    
+    .interview-finding--highlight {
+      color: var(--metric-warning);
+    }
+    
+    .interview-finding--commitment {
+      color: var(--metric-success);
+    }
+    
+    /* Expand/Collapse indicator */
+    .interview-expand {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dash-text-muted);
+      transition: transform var(--transition-base);
+    }
+    
+    .interview-item.expanded .interview-expand {
+      transform: rotate(180deg);
+    }
+    
+    /* ==========================================================================
+       ACTION BAR - Fixed Bottom
+       ========================================================================== */
+    
+    .action-bar {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.6s;
+    }
+    
+    @media (min-width: 640px) {
+      .action-bar {
+        justify-content: flex-start;
+      }
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      border: none;
+      text-decoration: none;
+    }
+    
+    .btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .btn--primary {
+      background: linear-gradient(135deg, var(--metric-accent) 0%, var(--metric-purple) 100%);
+      color: white;
+      box-shadow: 0 4px 12px var(--metric-accent-glow);
+    }
+    
+    .btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--metric-accent-glow);
+    }
+    
+    .btn--secondary {
+      background: var(--dash-bg-elevated);
+      color: var(--dash-text-primary);
+      border: 1px solid var(--dash-border);
+    }
+    
+    .btn--secondary:hover {
+      background: var(--dash-bg-card);
+      border-color: var(--metric-accent);
+    }
+    
+    .btn--ghost {
+      background: transparent;
+      color: var(--dash-text-secondary);
+      border: 1px solid var(--dash-border);
+    }
+    
+    .btn--ghost:hover {
+      color: var(--dash-text-primary);
+      border-color: var(--dash-text-secondary);
+    }
+    
+    /* ==========================================================================
+       FOOTER - Dark variant
+       ========================================================================== */
+    
+    .validation-page .site-footer {
+      background-color: var(--dash-bg-surface);
+      border-top-color: var(--dash-border);
+    }
+    
+    .validation-page .footer-link {
+      color: var(--dash-text-muted);
+    }
+    
+    .validation-page .footer-link:hover {
+      color: var(--metric-accent);
+    }
+    
+    .validation-page .footer-tagline,
+    .validation-page .footer-credit {
+      color: var(--dash-text-muted);
+    }
+    
+    .validation-page .footer-bottom {
+      border-top-color: var(--dash-border);
+    }
+    
+    /* ==========================================================================
+       AMBIENT EFFECTS
+       ========================================================================== */
+    
+    .validation-ambient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 500px;
+      background: 
+        radial-gradient(ellipse 60% 40% at 30% -10%, var(--metric-purple-glow) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 30% at 70% -5%, var(--metric-accent-glow) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    /* Noise texture overlay */
+    .validation-page::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    /* ==========================================================================
+       ANIMATIONS
+       ========================================================================== */
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Custom scrollbar for dark theme */
+    .commitment-items::-webkit-scrollbar,
+    .interview-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .commitment-items::-webkit-scrollbar-track,
+    .interview-list::-webkit-scrollbar-track {
+      background: var(--dash-bg-deep);
+    }
+    
+    .commitment-items::-webkit-scrollbar-thumb,
+    .interview-list::-webkit-scrollbar-thumb {
+      background: var(--dash-bg-elevated);
+      border-radius: 3px;
+    }
+    
+    .commitment-items::-webkit-scrollbar-thumb:hover,
+    .interview-list::-webkit-scrollbar-thumb:hover {
+      background: var(--dash-text-muted);
+    }
+    
+    /* ==========================================================================
+       TWO COLUMN LAYOUT FOR LARGER SCREENS
+       ========================================================================== */
+    
+    @media (min-width: 1024px) {
+      .validation-grid {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: var(--space-8);
+        align-items: start;
+      }
+      
+      .validation-main-column {
+        min-width: 0;
+      }
+      
+      .validation-sidebar {
+        position: sticky;
+        top: 100px;
+      }
+      
+      .interview-section {
+        margin-bottom: 0;
+      }
+    }
+    
+    /* ==========================================================================
+       AI VALIDATION ASSISTANT - FAB + Modal
+       ========================================================================== */
+    
+    /* Floating Action Button */
+    .ai-fab {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--metric-purple) 0%, #9945FF 100%);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 8px 32px rgba(191, 90, 242, 0.4),
+        0 0 0 0 rgba(191, 90, 242, 0.4);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+      animation: fabPulse 3s infinite;
+    }
+    
+    @keyframes fabPulse {
+      0%, 100% { box-shadow: 0 8px 32px rgba(191, 90, 242, 0.4), 0 0 0 0 rgba(191, 90, 242, 0.4); }
+      50% { box-shadow: 0 8px 32px rgba(191, 90, 242, 0.4), 0 0 0 12px rgba(191, 90, 242, 0); }
+    }
+    
+    .ai-fab:hover {
+      transform: scale(1.1) translateY(-4px);
+      box-shadow: 0 12px 40px rgba(191, 90, 242, 0.5);
+      animation: none;
+    }
+    
+    .ai-fab:active {
+      transform: scale(0.95);
+    }
+    
+    .ai-fab svg {
+      width: 28px;
+      height: 28px;
+      stroke: white;
+      fill: none;
+    }
+    
+    .ai-fab-label {
+      position: absolute;
+      right: 76px;
+      background: var(--dash-bg-card);
+      color: var(--dash-text-primary);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-lg);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      border: 1px solid var(--dash-border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .ai-fab:hover .ai-fab-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    /* AI Modal Backdrop */
+    .ai-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1001;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .ai-modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* AI Modal Container */
+    .ai-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: calc(100% - 32px);
+      max-width: 720px;
+      max-height: calc(100vh - 64px);
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-2xl);
+      border: 1px solid var(--dash-border);
+      z-index: 1002;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    }
+    
+    .ai-modal.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    /* Modal Header */
+    .ai-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--dash-border);
+      background: linear-gradient(180deg, rgba(191, 90, 242, 0.1) 0%, transparent 100%);
+    }
+    
+    .ai-modal-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    
+    .ai-modal-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--metric-purple-glow);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(191, 90, 242, 0.3);
+    }
+    
+    .ai-modal-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--metric-purple);
+    }
+    
+    .ai-modal-title h2 {
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+      margin: 0;
+    }
+    
+    .ai-modal-title span {
+      font-size: var(--text-xs);
+      color: var(--metric-purple);
+      display: block;
+      margin-top: 2px;
+    }
+    
+    .ai-modal-close {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dash-bg-elevated);
+      border: 1px solid var(--dash-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      color: var(--dash-text-secondary);
+      transition: all var(--transition-base);
+    }
+    
+    .ai-modal-close:hover {
+      background: var(--dash-bg-surface);
+      color: var(--dash-text-primary);
+      border-color: var(--metric-purple);
+    }
+    
+    .ai-modal-close svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    /* Modal Tabs */
+    .ai-modal-tabs {
+      display: flex;
+      gap: var(--space-1);
+      padding: var(--space-4) var(--space-6);
+      background: var(--dash-bg-elevated);
+      border-bottom: 1px solid var(--dash-border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .ai-modal-tab {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--dash-text-secondary);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      white-space: nowrap;
+    }
+    
+    .ai-modal-tab:hover {
+      color: var(--dash-text-primary);
+      background: var(--dash-bg-card);
+    }
+    
+    .ai-modal-tab.active {
+      color: var(--metric-purple);
+      background: var(--metric-purple-glow);
+      border-color: rgba(191, 90, 242, 0.3);
+    }
+    
+    .ai-modal-tab svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    
+    /* Modal Content */
+    .ai-modal-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-6);
+    }
+    
+    .ai-modal-content::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .ai-modal-content::-webkit-scrollbar-track {
+      background: var(--dash-bg-deep);
+    }
+    
+    .ai-modal-content::-webkit-scrollbar-thumb {
+      background: var(--dash-bg-elevated);
+      border-radius: 3px;
+    }
+    
+    /* Tab Panels */
+    .ai-tab-panel {
+      display: none;
+    }
+    
+    .ai-tab-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Panel Common Styles */
+    .ai-panel-intro {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      background: var(--dash-bg-elevated);
+      border-radius: var(--radius-xl);
+      margin-bottom: var(--space-6);
+      border: 1px solid var(--dash-border);
+    }
+    
+    .ai-panel-intro-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--metric-purple-glow);
+      border-radius: var(--radius-lg);
+      flex-shrink: 0;
+      font-size: 24px;
+    }
+    
+    .ai-panel-intro-text h3 {
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+      margin-bottom: var(--space-2);
+    }
+    
+    .ai-panel-intro-text p {
+      font-size: var(--text-sm);
+      color: var(--dash-text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    /* Input Area */
+    .ai-input-area {
+      margin-bottom: var(--space-6);
+    }
+    
+    .ai-input-label {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+      margin-bottom: var(--space-2);
+    }
+    
+    .ai-input {
+      width: 100%;
+      padding: var(--space-4);
+      background: var(--dash-bg-deep);
+      border: 1px solid var(--dash-border);
+      border-radius: var(--radius-lg);
+      font-size: var(--text-sm);
+      color: var(--dash-text-primary);
+      transition: all var(--transition-base);
+      resize: none;
+    }
+    
+    .ai-input:focus {
+      outline: none;
+      border-color: var(--metric-purple);
+      box-shadow: 0 0 0 3px var(--metric-purple-glow);
+    }
+    
+    .ai-input::placeholder {
+      color: var(--dash-text-muted);
+    }
+    
+    /* Action Button */
+    .ai-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-6);
+      background: linear-gradient(135deg, var(--metric-purple) 0%, #9945FF 100%);
+      color: white;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      box-shadow: 0 4px 12px var(--metric-purple-glow);
+    }
+    
+    .ai-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--metric-purple-glow);
+    }
+    
+    .ai-action-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .ai-action-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    /* Results Area */
+    .ai-results {
+      background: var(--dash-bg-elevated);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--dash-border);
+      overflow: hidden;
+    }
+    
+    .ai-results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-5);
+      background: var(--dash-bg-card);
+      border-bottom: 1px solid var(--dash-border);
+    }
+    
+    .ai-results-title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+    }
+    
+    .ai-results-badge {
+      font-family: var(--font-mono-dashboard);
+      font-size: var(--text-xs);
+      padding: var(--space-1) var(--space-2);
+      background: var(--metric-purple-glow);
+      color: var(--metric-purple);
+      border-radius: var(--radius-sm);
+    }
+    
+    .ai-results-content {
+      padding: var(--space-5);
+    }
+    
+    /* Result Items */
+    .ai-result-item {
+      padding: var(--space-4);
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-3);
+      border: 1px solid var(--dash-border);
+      transition: all var(--transition-base);
+    }
+    
+    .ai-result-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .ai-result-item:hover {
+      border-color: var(--metric-purple);
+    }
+    
+    .ai-result-item h4 {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    
+    .ai-result-item p {
+      font-size: var(--text-sm);
+      color: var(--dash-text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    /* Competitor Card */
+    .competitor-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-3);
+      border: 1px solid var(--dash-border);
+    }
+    
+    .competitor-card:last-child {
+      margin-bottom: 0;
+    }
+    
+    .competitor-logo {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dash-bg-elevated);
+      border-radius: var(--radius-md);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    
+    .competitor-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .competitor-name {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+      margin-bottom: var(--space-1);
+    }
+    
+    .competitor-desc {
+      font-size: var(--text-xs);
+      color: var(--dash-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+    
+    .competitor-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+    }
+    
+    .competitor-tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      background: var(--dash-bg-elevated);
+      color: var(--dash-text-muted);
+      border-radius: var(--radius-sm);
+    }
+    
+    /* Verbatim Quote */
+    .verbatim-quote {
+      padding: var(--space-4);
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-3);
+      border-left: 3px solid var(--metric-warning);
+    }
+    
+    .verbatim-quote:last-child {
+      margin-bottom: 0;
+    }
+    
+    .verbatim-text {
+      font-size: var(--text-sm);
+      color: var(--dash-text-primary);
+      line-height: 1.6;
+      margin-bottom: var(--space-2);
+      font-style: italic;
+    }
+    
+    .verbatim-source {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      color: var(--dash-text-muted);
+    }
+    
+    .verbatim-source-icon {
+      font-size: 14px;
+    }
+    
+    /* Experiment Card */
+    .experiment-card {
+      padding: var(--space-5);
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+      border: 1px solid var(--dash-border);
+    }
+    
+    .experiment-card:last-child {
+      margin-bottom: 0;
+    }
+    
+    .experiment-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-3);
+    }
+    
+    .experiment-type {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      background: var(--metric-accent-glow);
+      color: var(--metric-accent);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      border-radius: var(--radius-full);
+    }
+    
+    .experiment-effort {
+      font-size: var(--text-xs);
+      color: var(--dash-text-muted);
+    }
+    
+    .experiment-title {
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+      margin-bottom: var(--space-2);
+    }
+    
+    .experiment-desc {
+      font-size: var(--text-sm);
+      color: var(--dash-text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-3);
+    }
+    
+    .experiment-metrics {
+      display: flex;
+      gap: var(--space-4);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--dash-border);
+    }
+    
+    .experiment-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .experiment-metric-label {
+      font-size: 10px;
+      color: var(--dash-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .experiment-metric-value {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+    }
+    
+    /* Expert Card */
+    .expert-card {
+      padding: var(--space-5);
+      background: var(--dash-bg-card);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+      border: 1px solid var(--dash-border);
+    }
+    
+    .expert-card:last-child {
+      margin-bottom: 0;
+    }
+    
+    .expert-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--dash-border);
+    }
+    
+    .expert-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--metric-purple) 0%, var(--metric-accent) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    
+    .expert-info h4 {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--dash-text-primary);
+      margin-bottom: 2px;
+    }
+    
+    .expert-info span {
+      font-size: var(--text-xs);
+      color: var(--dash-text-muted);
+    }
+    
+    .expert-score {
+      margin-left: auto;
+      text-align: center;
+    }
+    
+    .expert-score-value {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--metric-success);
+    }
+    
+    .expert-score-label {
+      font-size: 10px;
+      color: var(--dash-text-muted);
+      text-transform: uppercase;
+    }
+    
+    .expert-feedback {
+      font-size: var(--text-sm);
+      color: var(--dash-text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-3);
+    }
+    
+    .expert-tips {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    
+    .expert-tip {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--dash-text-primary);
+    }
+    
+    .expert-tip-icon {
+      color: var(--metric-warning);
+      flex-shrink: 0;
+    }
+    
+    /* Loading State */
+    .ai-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-10);
+      text-align: center;
+    }
+    
+    .ai-loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--dash-bg-elevated);
+      border-top-color: var(--metric-purple);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: var(--space-4);
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .ai-loading-text {
+      font-size: var(--text-sm);
+      color: var(--dash-text-secondary);
+    }
+    
+    /* Empty State */
+    .ai-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-10);
+      text-align: center;
+      color: var(--dash-text-muted);
+    }
+    
+    .ai-empty svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--dash-text-muted);
+      margin-bottom: var(--space-4);
+      opacity: 0.5;
+    }
+    
+    .ai-empty p {
+      font-size: var(--text-sm);
+      margin: 0;
+    }
+    
+    @media (max-width: 640px) {
+      .ai-fab {
+        bottom: 24px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+      }
+      
+      .ai-fab svg {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .ai-fab-label {
+        display: none;
+      }
+      
+      .ai-modal {
+        width: calc(100% - 16px);
+        max-height: calc(100vh - 32px);
+      }
+      
+      .ai-modal-tabs {
+        padding: var(--space-3) var(--space-4);
+      }
+      
+      .ai-modal-tab {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--text-xs);
+      }
+      
+      .ai-modal-content {
+        padding: var(--space-4);
+      }
+    }
+  </style>
+</head>
+<body class="validation-page">
+  <div class="validation-ambient"></div>
+  
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-mark">SOS</span>
+          <span class="logo-text">StartupOS</span>
+        </a>
+        
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="vision.html" class="nav-link">Vision</a>
+          <a href="foundation.html" class="nav-link">Foundation</a>
+          <a href="validation.html" class="nav-link active">Validation</a>
+          <a href="betting-table.html" class="nav-link">Betting</a>
+        </nav>
+        
+        <button 
+          class="mobile-menu-btn" 
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <div class="hamburger">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="mobile-nav-links">
+      <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
+      <a href="vision.html" class="mobile-nav-link">Vision</a>
+      <a href="foundation.html" class="mobile-nav-link">Foundation</a>
+      <a href="validation.html" class="mobile-nav-link">Validation</a>
+      <a href="betting-table.html" class="mobile-nav-link">Betting</a>
+    </div>
+  </nav>
+  
+  <main class="validation-main">
+    <div class="container">
+      <!-- Page Header -->
+      <header class="validation-header">
+        <span class="validation-eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 15l-2 5L9 9l11 4-5 2z"/>
+            <path d="M15 15l5 5"/>
+          </svg>
+          Click Moment
+        </span>
+        <h1 class="validation-title">验证中心</h1>
+        <p class="validation-subtitle">先不写代码，找到产品市场共鸣的"点击时刻"</p>
+      </header>
+      
+      <!-- MVP Threshold Card -->
+      <section class="mvp-threshold-card" aria-label="MVP validation threshold">
+        <div class="mvp-threshold-content">
+          <div class="mvp-threshold-info">
+            <h2>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              MVP 验证阈值
+            </h2>
+            <div class="mvp-big-number">7 <span>/ 10</span></div>
+            <div class="mvp-progress-bar">
+              <div class="mvp-progress-fill"></div>
+            </div>
+            <p class="mvp-threshold-text">
+              除非有 <strong>10 个人点了"购买"</strong>，否则不准进入开发阶段。
+              真正的验证来自行动承诺，而非口头赞美。
+            </p>
+          </div>
+          <div class="mvp-status-badge mvp-status-badge--warning">
+            <span class="mvp-status-pulse"></span>
+            继续验证
+          </div>
+        </div>
+      </section>
+      
+      <!-- Two Column Layout -->
+      <div class="validation-grid">
+        <!-- Main Column -->
+        <div class="validation-main-column">
+          <!-- Commitment Tracker -->
+          <section class="commitment-section" aria-label="Commitment tracker">
+            <div class="section-header">
+              <h2 class="section-title">承诺追踪器</h2>
+            </div>
+            
+            <!-- Counter Cards -->
+            <div class="counter-grid">
+              <button class="counter-card counter-card--preorder active" data-filter="preorder" type="button">
+                <div class="counter-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="9" cy="21" r="1"/>
+                    <circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                  </svg>
+                </div>
+                <div class="counter-number">7</div>
+                <div class="counter-label">预购意向</div>
+              </button>
+              
+              <button class="counter-card counter-card--email" data-filter="email" type="button">
+                <div class="counter-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <div class="counter-number">23</div>
+                <div class="counter-label">邮箱订阅</div>
+              </button>
+              
+              <button class="counter-card counter-card--referral" data-filter="referral" type="button">
+                <div class="counter-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                </div>
+                <div class="counter-number">5</div>
+                <div class="counter-label">推荐他人</div>
+              </button>
+            </div>
+            
+            <!-- Commitment List -->
+            <div class="commitment-list">
+              <div class="commitment-list-header">
+                <span class="commitment-filter-label">显示全部承诺</span>
+                <span class="commitment-filter-badge">35 条记录</span>
+              </div>
+              <div class="commitment-items">
+                <div class="commitment-item" data-type="email">
+                  <div class="commitment-type-icon">📧</div>
+                  <div class="commitment-details">
+                    <div class="commitment-contact">zhang@tsinghua.edu</div>
+                    <div class="commitment-note">"很期待产品上线"</div>
+                  </div>
+                  <div class="commitment-date">11月15日</div>
+                </div>
+                
+                <div class="commitment-item" data-type="preorder">
+                  <div class="commitment-type-icon">🛒</div>
+                  <div class="commitment-details">
+                    <div class="commitment-contact">李明 (微信)</div>
+                    <div class="commitment-note">愿意付费 99元/月</div>
+                  </div>
+                  <div class="commitment-date">11月14日</div>
+                </div>
+                
+                <div class="commitment-item" data-type="referral">
+                  <div class="commitment-type-icon">👥</div>
+                  <div class="commitment-details">
+                    <div class="commitment-contact">王芳推荐了 3 位同学</div>
+                    <div class="commitment-note">都是在校创业者</div>
+                  </div>
+                  <div class="commitment-date">11月13日</div>
+                </div>
+                
+                <div class="commitment-item" data-type="email">
+                  <div class="commitment-type-icon">📧</div>
+                  <div class="commitment-details">
+                    <div class="commitment-contact">startup@pku.edu</div>
+                    <div class="commitment-note">北大创业协会账号</div>
+                  </div>
+                  <div class="commitment-date">11月12日</div>
+                </div>
+                
+                <div class="commitment-item" data-type="preorder">
+                  <div class="commitment-type-icon">🛒</div>
+                  <div class="commitment-details">
+                    <div class="commitment-contact">陈晨</div>
+                    <div class="commitment-note">已支付定金 50元 💰</div>
+                  </div>
+                  <div class="commitment-date">11月10日</div>
+                </div>
+                
+                <div class="commitment-item" data-type="preorder">
+                  <div class="commitment-type-icon">🛒</div>
+                  <div class="commitment-details">
+                    <div class="commitment-contact">刘洋 (微信)</div>
+                    <div class="commitment-note">愿意成为早期测试用户</div>
+                  </div>
+                  <div class="commitment-date">11月8日</div>
+                </div>
+                
+                <div class="commitment-item" data-type="email">
+                  <div class="commitment-type-icon">📧</div>
+                  <div class="commitment-details">
+                    <div class="commitment-contact">entrepreneur@fudan.edu</div>
+                    <div class="commitment-note">"希望能接入我们孵化器"</div>
+                  </div>
+                  <div class="commitment-date">11月6日</div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <!-- Cold Script Builder -->
+          <section class="script-section" aria-label="Interview script builder">
+            <div class="script-card">
+              <header class="script-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                <h2 class="script-header-title">访谈脚本生成器</h2>
+              </header>
+              
+              <div class="script-tabs" role="tablist">
+                <button class="script-tab active" role="tab" aria-selected="true" data-tab="problem">问题验证</button>
+                <button class="script-tab" role="tab" aria-selected="false" data-tab="solution">方案验证</button>
+                <button class="script-tab" role="tab" aria-selected="false" data-tab="pricing">定价验证</button>
+              </div>
+              
+              <div class="script-content">
+                <textarea class="script-textarea" id="script-textarea" spellcheck="false">【开场白】
+"你好，我是[名字]，我正在研究大学生创业管理的问题。
+我想了解一下你过去的创业经历，大概需要15分钟。"
+
+【背景问题】
+• "你上一次创业项目是什么时候？进展如何？"
+• "在创业过程中，最大的挑战是什么？"
+• "你通常怎么管理你的创业想法和进度？"
+
+【痛点挖掘】(Mom Test 风格 - 不要引导)
+• "能给我讲讲上次遇到[问题]的具体情况吗？"
+• "你是怎么解决的？花了多少时间/钱？"
+• "这个问题给你造成了什么后果？"
+• "你尝试过哪些工具或方法来解决？"
+
+【验证信号】(观察瞳孔放大时刻 👀)
+• "如果有工具能帮你[价值主张]，你会怎么做？"
+• "你愿意现在留下邮箱等待上线通知吗？"
+• "如果这个产品明天上线，你愿意付多少钱？"
+
+【结束语】
+"感谢你的时间！最后一个问题：
+你能介绍1-2位也有创业经历的朋友吗？
+我可以请他们喝杯咖啡聊聊。"
+
+---
+📝 记录要点：
+• 用户的具体行为，不是观点
+• 他们花了多少时间/金钱在这个问题上
+• 瞳孔放大的时刻（什么话题让他们眼睛发亮）
+• 承诺：邮箱、介绍朋友、愿意付费</textarea>
+              </div>
+              
+              <footer class="script-footer">
+                <button class="btn btn--secondary" type="button" onclick="copyScript()">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                  复制脚本
+                </button>
+              </footer>
+            </div>
+          </section>
+        </div>
+        
+        <!-- Sidebar -->
+        <aside class="validation-sidebar">
+          <!-- Interview Log -->
+          <section class="interview-section" aria-label="Interview log">
+            <div class="interview-card">
+              <header class="interview-header">
+                <div class="interview-header-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                  <h2 class="interview-header-title">访谈记录</h2>
+                </div>
+                <span class="interview-count-badge">5 次访谈</span>
+              </header>
+              
+              <div class="interview-list">
+                <article class="interview-item expanded">
+                  <div class="interview-item-header">
+                    <div class="interview-item-title">
+                      <div class="interview-avatar">小明</div>
+                      <div>
+                        <div class="interview-name">访谈 #5 - 小明</div>
+                        <div class="interview-meta">清华大学 · 计算机系</div>
+                      </div>
+                    </div>
+                    <div class="interview-date">11月16日</div>
+                  </div>
+                  <div class="interview-findings">
+                    <div class="interview-finding">
+                      <span class="interview-finding-icon">💡</span>
+                      <span>关键发现: 最大痛点是不知道如何验证想法</span>
+                    </div>
+                    <div class="interview-finding interview-finding--highlight">
+                      <span class="interview-finding-icon">👀</span>
+                      <span>瞳孔放大时刻: 听到"自动提示最危险假设"时</span>
+                    </div>
+                    <div class="interview-finding interview-finding--commitment">
+                      <span class="interview-finding-icon">✅</span>
+                      <span>承诺: 留下邮箱，愿意介绍2位朋友</span>
+                    </div>
+                  </div>
+                </article>
+                
+                <article class="interview-item">
+                  <div class="interview-item-header">
+                    <div class="interview-item-title">
+                      <div class="interview-avatar">小红</div>
+                      <div>
+                        <div class="interview-name">访谈 #4 - 小红</div>
+                        <div class="interview-meta">北京大学 · 光华管理</div>
+                      </div>
+                    </div>
+                    <div class="interview-date">11月14日</div>
+                  </div>
+                  <div class="interview-findings">
+                    <div class="interview-finding">
+                      <span class="interview-finding-icon">💡</span>
+                      <span>关键发现: 用过Notion管理创业，但觉得不够专业</span>
+                    </div>
+                    <div class="interview-finding interview-finding--highlight">
+                      <span class="interview-finding-icon">👀</span>
+                      <span>瞳孔放大时刻: Hill Chart 演示</span>
+                    </div>
+                    <div class="interview-finding interview-finding--commitment">
+                      <span class="interview-finding-icon">✅</span>
+                      <span>承诺: 愿意预付50元定金</span>
+                    </div>
+                  </div>
+                </article>
+                
+                <article class="interview-item">
+                  <div class="interview-item-header">
+                    <div class="interview-item-title">
+                      <div class="interview-avatar">阿杰</div>
+                      <div>
+                        <div class="interview-name">访谈 #3 - 阿杰</div>
+                        <div class="interview-meta">复旦大学 · 创业协会</div>
+                      </div>
+                    </div>
+                    <div class="interview-date">11月10日</div>
+                  </div>
+                  <div class="interview-findings">
+                    <div class="interview-finding">
+                      <span class="interview-finding-icon">💡</span>
+                      <span>关键发现: 创业团队沟通效率低，需要共享视图</span>
+                    </div>
+                    <div class="interview-finding interview-finding--highlight">
+                      <span class="interview-finding-icon">👀</span>
+                      <span>瞳孔放大时刻: 团队协作功能介绍</span>
+                    </div>
+                    <div class="interview-finding interview-finding--commitment">
+                      <span class="interview-finding-icon">✅</span>
+                      <span>承诺: 订阅邮件，愿意参与beta测试</span>
+                    </div>
+                  </div>
+                </article>
+                
+                <article class="interview-item">
+                  <div class="interview-item-header">
+                    <div class="interview-item-title">
+                      <div class="interview-avatar">小雨</div>
+                      <div>
+                        <div class="interview-name">访谈 #2 - 小雨</div>
+                        <div class="interview-meta">浙江大学 · 创新创业学院</div>
+                      </div>
+                    </div>
+                    <div class="interview-date">11月7日</div>
+                  </div>
+                  <div class="interview-findings">
+                    <div class="interview-finding">
+                      <span class="interview-finding-icon">💡</span>
+                      <span>关键发现: 导师指导不足，缺乏系统方法论</span>
+                    </div>
+                    <div class="interview-finding interview-finding--highlight">
+                      <span class="interview-finding-icon">👀</span>
+                      <span>瞳孔放大时刻: 验证阈值概念</span>
+                    </div>
+                    <div class="interview-finding interview-finding--commitment">
+                      <span class="interview-finding-icon">✅</span>
+                      <span>承诺: 推荐给3位同学</span>
+                    </div>
+                  </div>
+                </article>
+                
+                <article class="interview-item">
+                  <div class="interview-item-header">
+                    <div class="interview-item-title">
+                      <div class="interview-avatar">大伟</div>
+                      <div>
+                        <div class="interview-name">访谈 #1 - 大伟</div>
+                        <div class="interview-meta">上海交大 · 安泰经管</div>
+                      </div>
+                    </div>
+                    <div class="interview-date">11月3日</div>
+                  </div>
+                  <div class="interview-findings">
+                    <div class="interview-finding">
+                      <span class="interview-finding-icon">💡</span>
+                      <span>关键发现: 参加过创业比赛但项目停滞</span>
+                    </div>
+                    <div class="interview-finding interview-finding--highlight">
+                      <span class="interview-finding-icon">👀</span>
+                      <span>瞳孔放大时刻: 6周冲刺周期规划</span>
+                    </div>
+                    <div class="interview-finding interview-finding--commitment">
+                      <span class="interview-finding-icon">✅</span>
+                      <span>承诺: 留下邮箱</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+      
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <button class="btn btn--primary" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          新增承诺
+        </button>
+        <button class="btn btn--secondary" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          记录访谈
+        </button>
+        <button class="btn btn--ghost" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          导出数据
+        </button>
+      </div>
+    </div>
+  </main>
+  
+  <!-- AI Validation Assistant FAB -->
+  <button class="ai-fab" id="aiFab" type="button" aria-label="打开 AI 验证助手">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+      <path d="M9 17v-2"/>
+      <path d="M15 17v-2"/>
+    </svg>
+    <span class="ai-fab-label">AI 验证助手</span>
+  </button>
+  
+  <!-- AI Modal Backdrop -->
+  <div class="ai-modal-backdrop" id="aiModalBackdrop"></div>
+  
+  <!-- AI Modal -->
+  <div class="ai-modal" id="aiModal" role="dialog" aria-modal="true" aria-labelledby="aiModalTitle">
+    <header class="ai-modal-header">
+      <div class="ai-modal-title">
+        <div class="ai-modal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+            <path d="M9 17v-2"/>
+            <path d="M15 17v-2"/>
+          </svg>
+        </div>
+        <div>
+          <h2 id="aiModalTitle">AI 验证助手</h2>
+          <span>Powered by GPT-4</span>
+        </div>
+      </div>
+      <button class="ai-modal-close" id="aiModalClose" type="button" aria-label="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </header>
+    
+    <div class="ai-modal-tabs" role="tablist">
+      <button class="ai-modal-tab active" role="tab" aria-selected="true" data-ai-tab="market">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        市场研究
+      </button>
+      <button class="ai-modal-tab" role="tab" aria-selected="false" data-ai-tab="verbatim">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        痛点雷达
+      </button>
+      <button class="ai-modal-tab" role="tab" aria-selected="false" data-ai-tab="experiment">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <line x1="10" y1="9" x2="8" y2="9"/>
+        </svg>
+        实验方案
+      </button>
+      <button class="ai-modal-tab" role="tab" aria-selected="false" data-ai-tab="expert">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        专家委员会
+      </button>
+    </div>
+    
+    <div class="ai-modal-content">
+      <!-- Tab 1: Market Research -->
+      <div class="ai-tab-panel active" id="panel-market">
+        <div class="ai-panel-intro">
+          <div class="ai-panel-intro-icon">🔍</div>
+          <div class="ai-panel-intro-text">
+            <h3>一键市场研究</h3>
+            <p>输入你的产品描述，AI 将帮你分析竞争对手、估算 TAM/SAM/SOM，并识别市场机会。</p>
+          </div>
+        </div>
+        
+        <div class="ai-input-area">
+          <label class="ai-input-label">产品描述</label>
+          <textarea class="ai-input" rows="3" placeholder="例如：一款帮助大学生创业者验证商业想法的 SaaS 工具，整合精益创业方法论..."></textarea>
+        </div>
+        
+        <button class="ai-action-btn" type="button" onclick="runMarketResearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          开始分析
+        </button>
+        
+        <div class="ai-results" style="margin-top: var(--space-6);">
+          <div class="ai-results-header">
+            <span class="ai-results-title">竞品分析</span>
+            <span class="ai-results-badge">AI 生成</span>
+          </div>
+          <div class="ai-results-content">
+            <div class="competitor-card">
+              <div class="competitor-logo">📊</div>
+              <div class="competitor-info">
+                <div class="competitor-name">Notion</div>
+                <div class="competitor-desc">通用型工作协作工具，支持自定义模板，但缺乏创业验证专用功能</div>
+                <div class="competitor-tags">
+                  <span class="competitor-tag">$8-15/月</span>
+                  <span class="competitor-tag">通用工具</span>
+                  <span class="competitor-tag">高知名度</span>
+                </div>
+              </div>
+            </div>
+            <div class="competitor-card">
+              <div class="competitor-logo">🎯</div>
+              <div class="competitor-info">
+                <div class="competitor-name">Lean Canvas by Leanstack</div>
+                <div class="competitor-desc">专业精益画布工具，功能单一，缺乏验证追踪</div>
+                <div class="competitor-tags">
+                  <span class="competitor-tag">$15/月起</span>
+                  <span class="competitor-tag">垂直工具</span>
+                  <span class="competitor-tag">国际市场</span>
+                </div>
+              </div>
+            </div>
+            <div class="competitor-card">
+              <div class="competitor-logo">📋</div>
+              <div class="competitor-info">
+                <div class="competitor-name">YC Startup School</div>
+                <div class="competitor-desc">免费课程平台，教育为主，无实操工具</div>
+                <div class="competitor-tags">
+                  <span class="competitor-tag">免费</span>
+                  <span class="competitor-tag">教育内容</span>
+                  <span class="competitor-tag">高权威</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="ai-results" style="margin-top: var(--space-4);">
+          <div class="ai-results-header">
+            <span class="ai-results-title">市场规模估算</span>
+            <span class="ai-results-badge">TAM/SAM/SOM</span>
+          </div>
+          <div class="ai-results-content">
+            <div class="ai-result-item">
+              <h4>🌍 TAM (Total Addressable Market)</h4>
+              <p>全球创业者约 <strong>5.82 亿</strong>，创业管理工具市场约 <strong>$120 亿</strong>/年</p>
+            </div>
+            <div class="ai-result-item">
+              <h4>🎯 SAM (Serviceable Addressable Market)</h4>
+              <p>中国高校创业者约 <strong>280 万</strong>，潜在市场约 <strong>¥28 亿</strong>/年 (假设 ¥1000/人/年)</p>
+            </div>
+            <div class="ai-result-item">
+              <h4>🚀 SOM (Serviceable Obtainable Market)</h4>
+              <p>第一年可触达约 <strong>1 万</strong> 用户，预估收入 <strong>¥500-1000 万</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab 2: Verbatim Pain Radar -->
+      <div class="ai-tab-panel" id="panel-verbatim">
+        <div class="ai-panel-intro">
+          <div class="ai-panel-intro-icon">📡</div>
+          <div class="ai-panel-intro-text">
+            <h3>痛点雷达</h3>
+            <p>从知乎、小红书、微博等平台收集用户真实原话，发现未被满足的需求。</p>
+          </div>
+        </div>
+        
+        <div class="ai-input-area">
+          <label class="ai-input-label">关键词 / 话题</label>
+          <textarea class="ai-input" rows="2" placeholder="例如：大学生创业、创业验证、商业计划书、创业比赛..."></textarea>
+        </div>
+        
+        <button class="ai-action-btn" type="button" onclick="runVerbatimSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          扫描痛点
+        </button>
+        
+        <div class="ai-results" style="margin-top: var(--space-6);">
+          <div class="ai-results-header">
+            <span class="ai-results-title">用户原话收集</span>
+            <span class="ai-results-badge">12 条高相关</span>
+          </div>
+          <div class="ai-results-content">
+            <div class="verbatim-quote">
+              <div class="verbatim-text">"参加了三次创业比赛，每次都是拍脑袋想功能，从来没有真正验证过用户需求，结果比完就散了..."</div>
+              <div class="verbatim-source">
+                <span class="verbatim-source-icon">📕</span>
+                <span>知乎 · 创业话题 · 326 赞同</span>
+              </div>
+            </div>
+            <div class="verbatim-quote">
+              <div class="verbatim-text">"导师让我做用户调研，我连怎么问问题都不知道，问出来的都是'这个功能好不好'这种废话问题"</div>
+              <div class="verbatim-source">
+                <span class="verbatim-source-icon">📗</span>
+                <span>小红书 · 创业笔记 · 1.2k 收藏</span>
+              </div>
+            </div>
+            <div class="verbatim-quote">
+              <div class="verbatim-text">"用 Notion 管理创业项目，模板是挺多，但没有一个能告诉我'你现在应该验证什么假设'"</div>
+              <div class="verbatim-source">
+                <span class="verbatim-source-icon">📕</span>
+                <span>知乎 · 效率工具 · 89 赞同</span>
+              </div>
+            </div>
+            <div class="verbatim-quote">
+              <div class="verbatim-text">"创业孵化器导师一周见一次，问题是平时没人指导，不知道该干嘛，就是在原地踏步"</div>
+              <div class="verbatim-source">
+                <span class="verbatim-source-icon">📘</span>
+                <span>微博 · 创业话题 · 67 转发</span>
+              </div>
+            </div>
+            <div class="verbatim-quote">
+              <div class="verbatim-text">"看了《精益创业》，道理都懂，但具体怎么执行呢？书里没说清楚啊"</div>
+              <div class="verbatim-source">
+                <span class="verbatim-source-icon">📕</span>
+                <span>知乎 · 创业书籍 · 521 赞同</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab 3: Experiment Generator -->
+      <div class="ai-tab-panel" id="panel-experiment">
+        <div class="ai-panel-intro">
+          <div class="ai-panel-intro-icon">🧪</div>
+          <div class="ai-panel-intro-text">
+            <h3>实验方案生成器</h3>
+            <p>输入你要验证的假设，AI 会生成 3 种验证方案，按成本/时间排序。</p>
+          </div>
+        </div>
+        
+        <div class="ai-input-area">
+          <label class="ai-input-label">待验证假设</label>
+          <textarea class="ai-input" rows="3" placeholder="例如：大学生创业者愿意为一款帮助他们系统验证想法的工具付费 99元/月..."></textarea>
+        </div>
+        
+        <button class="ai-action-btn" type="button" onclick="generateExperiments()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          生成方案
+        </button>
+        
+        <div class="ai-results" style="margin-top: var(--space-6);">
+          <div class="ai-results-header">
+            <span class="ai-results-title">验证方案</span>
+            <span class="ai-results-badge">按投入排序</span>
+          </div>
+          <div class="ai-results-content">
+            <div class="experiment-card">
+              <div class="experiment-header">
+                <span class="experiment-type">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  访谈测试
+                </span>
+                <span class="experiment-effort">⏱️ 3天 · 💰 ¥0</span>
+              </div>
+              <h4 class="experiment-title">Mom Test 深度访谈</h4>
+              <p class="experiment-desc">找 10 位目标用户进行 30 分钟深度访谈，使用 Mom Test 方法挖掘真实需求，在访谈结束时测试付费意愿。</p>
+              <div class="experiment-metrics">
+                <div class="experiment-metric">
+                  <span class="experiment-metric-label">样本量</span>
+                  <span class="experiment-metric-value">10 人</span>
+                </div>
+                <div class="experiment-metric">
+                  <span class="experiment-metric-label">成功标准</span>
+                  <span class="experiment-metric-value">≥3 人愿意预付</span>
+                </div>
+                <div class="experiment-metric">
+                  <span class="experiment-metric-label">预计周期</span>
+                  <span class="experiment-metric-value">3-5 天</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="experiment-card">
+              <div class="experiment-header">
+                <span class="experiment-type">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="3" y1="9" x2="21" y2="9"/>
+                    <line x1="9" y1="21" x2="9" y2="9"/>
+                  </svg>
+                  落地页测试
+                </span>
+                <span class="experiment-effort">⏱️ 1周 · 💰 ¥500-2000</span>
+              </div>
+              <h4 class="experiment-title">假门测试 (Fake Door)</h4>
+              <p class="experiment-desc">创建一个简单的落地页，描述产品价值主张，添加"立即购买"按钮，投放少量广告测试点击率和注册转化。</p>
+              <div class="experiment-metrics">
+                <div class="experiment-metric">
+                  <span class="experiment-metric-label">流量目标</span>
+                  <span class="experiment-metric-value">500 UV</span>
+                </div>
+                <div class="experiment-metric">
+                  <span class="experiment-metric-label">成功标准</span>
+                  <span class="experiment-metric-value">CTR ≥5%</span>
+                </div>
+                <div class="experiment-metric">
+                  <span class="experiment-metric-label">预计周期</span>
+                  <span class="experiment-metric-value">5-7 天</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="experiment-card">
+              <div class="experiment-header">
+                <span class="experiment-type">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+                    <circle cx="9" cy="21" r="1"/>
+                    <circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                  </svg>
+                  众筹预售
+                </span>
+                <span class="experiment-effort">⏱️ 2周 · 💰 ¥2000-5000</span>
+              </div>
+              <h4 class="experiment-title">早鸟预售活动</h4>
+              <p class="experiment-desc">在目标社群（创业协会、孵化器）发起早鸟预售，提供年卡 5 折优惠，验证真实付费意愿。</p>
+              <div class="experiment-metrics">
+                <div class="experiment-metric">
+                  <span class="experiment-metric-label">触达人数</span>
+                  <span class="experiment-metric-value">1000 人</span>
+                </div>
+                <div class="experiment-metric">
+                  <span class="experiment-metric-label">成功标准</span>
+                  <span class="experiment-metric-value">≥30 人付款</span>
+                </div>
+                <div class="experiment-metric">
+                  <span class="experiment-metric-label">预计周期</span>
+                  <span class="experiment-metric-value">10-14 天</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab 4: Expert Committee -->
+      <div class="ai-tab-panel" id="panel-expert">
+        <div class="ai-panel-intro">
+          <div class="ai-panel-intro-icon">🎓</div>
+          <div class="ai-panel-intro-text">
+            <h3>专家验证委员会</h3>
+            <p>模拟 Bill Aulet、Ash Maurya、Jake Knapp 三位创业方法论专家，对你的假设进行评分和反馈。</p>
+          </div>
+        </div>
+        
+        <div class="ai-input-area">
+          <label class="ai-input-label">你的创始假设</label>
+          <textarea class="ai-input" rows="4" placeholder="If we help [客户] solve [问题] with [方案], they will choose it over [竞品] because [差异化]..."></textarea>
+        </div>
+        
+        <button class="ai-action-btn" type="button" onclick="runExpertReview()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          提交评审
+        </button>
+        
+        <div class="ai-results" style="margin-top: var(--space-6);">
+          <div class="ai-results-header">
+            <span class="ai-results-title">专家评审结果</span>
+            <span class="ai-results-badge">综合评分 78/100</span>
+          </div>
+          <div class="ai-results-content">
+            <div class="expert-card">
+              <div class="expert-header">
+                <div class="expert-avatar">🎯</div>
+                <div class="expert-info">
+                  <h4>Bill Aulet</h4>
+                  <span>《有纪律的创业》作者 · MIT</span>
+                </div>
+                <div class="expert-score">
+                  <div class="expert-score-value">82</div>
+                  <div class="expert-score-label">/ 100</div>
+                </div>
+              </div>
+              <div class="expert-feedback">
+                "客户定义清晰，痛点具体。但需要更精确地量化'最危险假设'，建议用我的 24 步框架中的假设排序方法。"
+              </div>
+              <div class="expert-tips">
+                <div class="expert-tip">
+                  <span class="expert-tip-icon">💡</span>
+                  <span>建议：为 Top 3 假设分别设计验证实验</span>
+                </div>
+                <div class="expert-tip">
+                  <span class="expert-tip-icon">💡</span>
+                  <span>建议：明确定义 beachhead market 的边界</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="expert-card">
+              <div class="expert-header">
+                <div class="expert-avatar">📐</div>
+                <div class="expert-info">
+                  <h4>Ash Maurya</h4>
+                  <span>《精益画布》作者 · LEANSTACK</span>
+                </div>
+                <div class="expert-score">
+                  <div class="expert-score-value">75</div>
+                  <div class="expert-score-label">/ 100</div>
+                </div>
+              </div>
+              <div class="expert-feedback">
+                "问题-解决方案匹配还需要更多验证。建议先跑 5 轮 'Problem Interview'，确保你真的理解了用户的现有替代方案。"
+              </div>
+              <div class="expert-tips">
+                <div class="expert-tip">
+                  <span class="expert-tip-icon">💡</span>
+                  <span>建议：更新精益画布的'现有替代方案'部分</span>
+                </div>
+                <div class="expert-tip">
+                  <span class="expert-tip-icon">💡</span>
+                  <span>建议：在 Solution Interview 前完成 10 次 Problem Interview</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="expert-card">
+              <div class="expert-header">
+                <div class="expert-avatar">⚡</div>
+                <div class="expert-info">
+                  <h4>Jake Knapp</h4>
+                  <span>《设计冲刺》作者 · Google Ventures</span>
+                </div>
+                <div class="expert-score">
+                  <div class="expert-score-value">78</div>
+                  <div class="expert-score-label">/ 100</div>
+                </div>
+              </div>
+              <div class="expert-feedback">
+                "假设清晰，但验证周期可能太长。建议用一周冲刺的方式快速出原型，找 5 个用户测试，比完美规划更有价值。"
+              </div>
+              <div class="expert-tips">
+                <div class="expert-tip">
+                  <span class="expert-tip-icon">💡</span>
+                  <span>建议：周一定义问题，周五测试原型</span>
+                </div>
+                <div class="expert-tip">
+                  <span class="expert-tip-icon">💡</span>
+                  <span>建议：招募 5 位'首批客户'参与原型测试</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="index.html" class="logo">
+            <span class="logo-mark">SOS</span>
+            <span class="logo-text">StartupOS</span>
+          </a>
+          <p class="footer-tagline">Founder's Operating System</p>
+        </div>
+        
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="dashboard.html" class="footer-link">Dashboard</a>
+          <a href="vision.html" class="footer-link">Vision</a>
+          <a href="foundation.html" class="footer-link">Foundation</a>
+          <a href="validation.html" class="footer-link">Validation</a>
+          <a href="betting-table.html" class="footer-link">Betting</a>
+        </nav>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-credit">
+          StartupOS &copy; 2025<br>
+          Powered by Lean Canvas, Disciplined Entrepreneurship, Shape Up, Click
+        </p>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Script tab switching
+    const scriptTabs = document.querySelectorAll('.script-tab');
+    const scriptTextarea = document.getElementById('script-textarea');
+    
+    const scriptTemplates = {
+      problem: `【开场白】
+"你好，我是[名字]，我正在研究大学生创业管理的问题。
+我想了解一下你过去的创业经历，大概需要15分钟。"
+
+【背景问题】
+• "你上一次创业项目是什么时候？进展如何？"
+• "在创业过程中，最大的挑战是什么？"
+• "你通常怎么管理你的创业想法和进度？"
+
+【痛点挖掘】(Mom Test 风格 - 不要引导)
+• "能给我讲讲上次遇到[问题]的具体情况吗？"
+• "你是怎么解决的？花了多少时间/钱？"
+• "这个问题给你造成了什么后果？"
+• "你尝试过哪些工具或方法来解决？"
+
+【验证信号】(观察瞳孔放大时刻 👀)
+• "如果有工具能帮你[价值主张]，你会怎么做？"
+• "你愿意现在留下邮箱等待上线通知吗？"
+• "如果这个产品明天上线，你愿意付多少钱？"
+
+【结束语】
+"感谢你的时间！最后一个问题：
+你能介绍1-2位也有创业经历的朋友吗？
+我可以请他们喝杯咖啡聊聊。"
+
+---
+📝 记录要点：
+• 用户的具体行为，不是观点
+• 他们花了多少时间/金钱在这个问题上
+• 瞳孔放大的时刻（什么话题让他们眼睛发亮）
+• 承诺：邮箱、介绍朋友、愿意付费`,
+
+      solution: `【开场白】
+"你好！上次聊天后我们做了一个原型，
+想请你花10分钟看看，给我们一些反馈。"
+
+【展示原型】
+• 简单演示核心功能（不超过3个）
+• 观察用户的第一反应
+• 注意他们的问题和困惑点
+
+【收集反馈】(Mom Test 风格)
+• "你觉得这个能解决你之前提到的[问题]吗？"
+• "哪个功能对你最有用？为什么？"
+• "有什么地方让你困惑或觉得多余？"
+• "你会在什么场景下使用这个？"
+
+【对比现有方案】
+• "这个和你现在用的[竞品]相比怎么样？"
+• "如果要你选择，你会用哪个？为什么？"
+• "有什么功能是必须有的，现在还没看到？"
+
+【验证承诺】(关键时刻 🔥)
+• "如果这个产品下周上线，你会用吗？"
+• "你愿意预付[金额]锁定早鸟价吗？"
+• "你能帮我介绍2-3个也需要这个的朋友吗？"
+
+【结束语】
+"非常感谢你的时间和反馈！
+我们会根据你的建议改进产品。
+上线时第一时间通知你。"
+
+---
+📝 记录要点：
+• 用户的具体反应（喜欢/困惑/忽略）
+• 他们自发问的问题
+• 和竞品对比时的态度
+• 最终的承诺类型和强度`,
+
+      pricing: `【开场白】
+"你好！我们的产品快要上线了，
+想请教一下关于定价的问题，大概5分钟。"
+
+【了解支付意愿】
+• "你目前在[相关问题]上每月花多少钱？"
+• "包括工具、培训、外包等所有相关支出"
+• "如果能节省[X]小时/天，值多少钱？"
+
+【价格测试】(Van Westendorp 方法)
+• "什么价格你觉得太便宜，质量可能有问题？"
+• "什么价格你觉得划算，物超所值？"
+• "什么价格你觉得有点贵，但可以接受？"
+• "什么价格你觉得太贵，绝对不会买？"
+
+【方案对比】
+• 展示2-3个定价方案（免费/基础/专业）
+• "你会选择哪个方案？为什么？"
+• "专业版多了[功能]，值得多付[X]元吗？"
+
+【付费意愿确认】(关键承诺 💰)
+• "如果现在预付可以锁定早鸟价[X]元/月，你愿意吗？"
+• "你更喜欢月付还是年付？年付可以打[X]折"
+• "如果不满意，[X]天内可以全额退款，这样你会更放心吗？"
+
+【结束语】
+"感谢你帮我们确定定价！
+作为早期支持者，你将获得永久[X]折优惠。
+现在可以留下支付信息锁定这个价格。"
+
+---
+📝 记录要点：
+• 用户感知的价格区间
+• 选择的方案和理由
+• 对比竞品时的价格反应
+• 是否愿意现场付费`
+    };
+    
+    scriptTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        scriptTabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        
+        const tabType = tab.dataset.tab;
+        if (scriptTemplates[tabType]) {
+          scriptTextarea.value = scriptTemplates[tabType];
+        }
+      });
+    });
+    
+    // Copy script function
+    function copyScript() {
+      const textarea = document.getElementById('script-textarea');
+      textarea.select();
+      document.execCommand('copy');
+      
+      // Visual feedback
+      const btn = event.target.closest('.btn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        已复制!
+      `;
+      btn.style.color = 'var(--metric-success)';
+      
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.color = '';
+      }, 2000);
+    }
+    
+    // Counter card filter functionality
+    const counterCards = document.querySelectorAll('.counter-card');
+    const commitmentItems = document.querySelectorAll('.commitment-item');
+    const filterLabel = document.querySelector('.commitment-filter-label');
+    const filterBadge = document.querySelector('.commitment-filter-badge');
+    
+    const filterLabels = {
+      all: '显示全部承诺',
+      preorder: '筛选: 预购意向',
+      email: '筛选: 邮箱订阅',
+      referral: '筛选: 推荐他人'
+    };
+    
+    let activeFilter = 'all';
+    
+    counterCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const filter = card.dataset.filter;
+        
+        // Toggle active state
+        if (activeFilter === filter) {
+          // Clicking same filter - show all
+          activeFilter = 'all';
+          counterCards.forEach(c => c.classList.remove('active'));
+        } else {
+          activeFilter = filter;
+          counterCards.forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+        }
+        
+        // Filter items
+        let visibleCount = 0;
+        commitmentItems.forEach(item => {
+          const itemType = item.dataset.type;
+          if (activeFilter === 'all' || itemType === activeFilter) {
+            item.style.display = 'flex';
+            visibleCount++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        // Update filter label
+        filterLabel.textContent = filterLabels[activeFilter];
+        filterBadge.textContent = `${visibleCount} 条记录`;
+      });
+    });
+    
+    // Interview item expand/collapse
+    const interviewItems = document.querySelectorAll('.interview-item');
+    interviewItems.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('expanded');
+      });
+    });
+    
+    // ==========================================================================
+    // AI VALIDATION ASSISTANT - Modal Controller
+    // ==========================================================================
+    
+    const aiFab = document.getElementById('aiFab');
+    const aiModal = document.getElementById('aiModal');
+    const aiModalBackdrop = document.getElementById('aiModalBackdrop');
+    const aiModalClose = document.getElementById('aiModalClose');
+    const aiModalTabs = document.querySelectorAll('.ai-modal-tab');
+    const aiTabPanels = document.querySelectorAll('.ai-tab-panel');
+    
+    function openAiModal() {
+      aiModal.classList.add('open');
+      aiModalBackdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      aiModal.querySelector('.ai-input')?.focus();
+    }
+    
+    function closeAiModal() {
+      aiModal.classList.remove('open');
+      aiModalBackdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    
+    aiFab?.addEventListener('click', openAiModal);
+    aiModalClose?.addEventListener('click', closeAiModal);
+    aiModalBackdrop?.addEventListener('click', closeAiModal);
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && aiModal?.classList.contains('open')) {
+        closeAiModal();
+      }
+    });
+    
+    aiModalTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetPanel = tab.dataset.aiTab;
+        
+        aiModalTabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        
+        aiTabPanels.forEach(panel => {
+          panel.classList.remove('active');
+        });
+        
+        const activePanel = document.getElementById(`panel-${targetPanel}`);
+        if (activePanel) {
+          activePanel.classList.add('active');
+        }
+      });
+    });
+    
+    function runMarketResearch() {
+      const btn = event.target.closest('.ai-action-btn');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `
+        <div class="ai-loading-spinner" style="width:18px;height:18px;border-width:2px;margin:0;"></div>
+        分析中...
+      `;
+      
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        btn.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          分析完成
+        `;
+        btn.style.background = 'var(--metric-success)';
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '';
+        }, 2000);
+      }, 2000);
+    }
+    
+    function runVerbatimSearch() {
+      const btn = event.target.closest('.ai-action-btn');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `
+        <div class="ai-loading-spinner" style="width:18px;height:18px;border-width:2px;margin:0;"></div>
+        扫描中...
+      `;
+      
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          扫描完成
+        `;
+        btn.style.background = 'var(--metric-success)';
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '';
+        }, 2000);
+      }, 1500);
+    }
+    
+    function generateExperiments() {
+      const btn = event.target.closest('.ai-action-btn');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `
+        <div class="ai-loading-spinner" style="width:18px;height:18px;border-width:2px;margin:0;"></div>
+        生成中...
+      `;
+      
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          生成完成
+        `;
+        btn.style.background = 'var(--metric-success)';
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '';
+        }, 2000);
+      }, 1800);
+    }
+    
+    function runExpertReview() {
+      const btn = event.target.closest('.ai-action-btn');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `
+        <div class="ai-loading-spinner" style="width:18px;height:18px;border-width:2px;margin:0;"></div>
+        评审中...
+      `;
+      
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          评审完成
+        `;
+        btn.style.background = 'var(--metric-success)';
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '';
+        }, 2000);
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
