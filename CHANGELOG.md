@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to StartupOS (SOS) will be documented in this file.
+All notable changes to StartupOS (SOS) will be documented in this file. This file is maintained by skill "continuity-ledger".
 
 ## [1.0.0] - 2026-01-16
 

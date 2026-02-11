@@ -6,7 +6,9 @@ Guidelines for AI coding agents working in this repository.
 
 StartupOS is a **pure static website** (HTML/CSS/JS) prototype for a startup management tool. No build tools, bundlers, or frameworks - just vanilla web technologies designed for GitHub Pages hosting.
 
-## Development Commands
+**Tech Stack:** HTML5, CSS3 (with CSS Custom Properties), Vanilla JavaScript (ES6+)
+
+## Build/Lint/Test Commands
 
 ```bash
 # Start local development server
@@ -18,36 +20,50 @@ npx serve .
 
 # Validate HTML (optional)
 npx html-validate "*.html"
-```
 
-**No build step, no tests, no linting configured.** Quality is enforced through code review and browser testing.
+# No build step required - static files served directly
+# No tests configured - quality enforced through browser testing
+# No linting configured - follow code style guidelines below
+```
 
 ## File Structure
 
 ```
-SOS/
+StartupOS/
 ├── index.html           # Landing page (light theme)
-├── dashboard.html       # The Pulse - main dashboard with Rocks progress + Issues List
-├── vision.html          # EOS V/TO Vision Hub (Core Focus, 10-3-1 Goals, Three Uniques, Values, Marketing)
-├── foundation.html      # Click Foundation Sprint (The Basics, Differentiators, Four Lenses, Hypothesis)
-├── validation.html      # Click Moment validation hub + AI Validation Assistant
-├── betting-table.html   # Shape Up cycles + Hill Chart + Quarterly Rocks
+├── dashboard.html       # The Pulse - main dashboard
+├── vision.html          # EOS V/TO Vision Hub
+├── foundation.html      # Click Foundation Sprint
+├── validation.html      # Click Moment + AI Validation Assistant
+├── betting-table.html   # Shape Up cycles + Hill Chart
 ├── truth-canvas.html    # [REDIRECT] → foundation.html
 ├── assets/
-│   ├── css/styles.css   # Global CSS framework
+│   ├── css/styles.css   # Global CSS framework (1500+ lines)
 │   └── js/main.js       # Shared navigation/interactions
-└── AGENTS.md            # This file
+├── AGENTS.md            # This file
+└── CHANGELOG.md         # Version history
 ```
 
 ## Code Style Guidelines
 
 ### HTML
 
-- Use `<!DOCTYPE html>` with `lang="zh-CN"`
-- Include proper meta tags (charset, viewport, description)
-- Use semantic HTML5 elements (`<header>`, `<main>`, `<section>`, `<nav>`, `<footer>`)
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="描述内容">
+  <title>Page Title - StartupOS</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+```
+
+- Use semantic HTML5: `<header>`, `<main>`, `<section>`, `<nav>`, `<footer>`, `<article>`
 - Always include `aria-label` on interactive elements
 - Use `aria-expanded`, `aria-hidden`, `aria-controls` for toggleable UI
+- Page-specific styles go in `<style>` block within `<head>`, NOT external CSS
 
 **Class Naming (BEM-inspired):**
 ```html
@@ -57,63 +73,29 @@ SOS/
 </div>
 ```
 
-**Page-Specific Styles:** Put in `<style>` block within `<head>`, NOT in external CSS.
-
 ### CSS
 
-**Design Tokens** - All colors, fonts, spacing defined in `:root`:
+**Design Tokens** - All values defined in `:root`:
 ```css
+/* Colors */
 --color-bg-primary: #FFFFFF;
 --color-text-primary: #1D1D1F;
 --color-accent: #0071E3;      /* Apple Blue */
 --color-success: #34C759;
 --color-warning: #FF9500;
 --color-danger: #FF3B30;
+
+/* Spacing */
+--space-4: 1rem;   /* 16px */
+--space-6: 1.5rem; /* 24px */
+--space-8: 2rem;   /* 32px */
+
+/* Transitions */
+--transition-base: 200ms ease;
+--transition-slow: 300ms ease;
 ```
 
-**Typography:** Font stack `-apple-system, BlinkMacSystemFont, 'SF Pro Display'...`
-
-**Component Patterns:**
-- Cards: `border-radius: var(--radius-xl)`, subtle shadows
-- Buttons: `border-radius: var(--radius-full)` for primary
-- Transitions: `var(--transition-base)` (200ms ease)
-- Spacing: Use `--space-*` variables, generous whitespace (48-80px section padding)
-
-### JavaScript
-
-**Module Pattern:**
-```javascript
-(function() {
-  'use strict';
-  // All code here
-  window.SOS = { publicFunction };
-})();
-```
-
-**DOM & Events:**
-```javascript
-const element = document.querySelector('.selector');
-if (!element) return;  // Early return pattern
-element?.classList.contains('active')  // Optional chaining
-```
-
-- Use `addEventListener`, never inline handlers
-- Include `{ passive: true }` for scroll/touch events
-- Handle keyboard events for accessibility (Escape to close)
-
-**Naming:** Functions `camelCase` verb-first (`toggleMenu`, `handleScroll`)
-
-**Performance:**
-- Use `requestAnimationFrame` for scroll handlers
-- Debounce/throttle expensive operations
-- Use `IntersectionObserver` for scroll animations
-
-## Design Philosophy
-
-**Visual Style (Apple-Inspired):**
-- Clean, minimal, generous whitespace
-- Dark theme for dashboard pages, light for landing
-- Glassmorphism effects (backdrop-filter: blur)
+**Typography:** `-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif`
 
 **Responsive Breakpoints:**
 ```css
@@ -123,109 +105,177 @@ element?.classList.contains('active')  // Optional chaining
 @media (min-width: 1200px) { /* xl */ }
 ```
 
-**Animation:** Staggered fade-in (0.1s delays), subtle hover lifts, 200-300ms transitions. Respect `prefers-reduced-motion`.
+### JavaScript
 
-## Navigation Structure
+**Module Pattern:**
+```javascript
+(function() {
+  'use strict';
+  
+  // Private functions
+  function privateHelper() { }
+  
+  // Public API
+  window.SOS = {
+    publicFunction,
+    anotherFunction
+  };
+})();
+```
 
-All pages share the same navigation. Mark active page with `.active` class:
-- **Dashboard** → `dashboard.html`
-- **Vision** → `vision.html`
-- **Foundation** → `foundation.html`
-- **Validation** → `validation.html`
-- **Betting** → `betting-table.html`
+**DOM & Events:**
+```javascript
+// Early return pattern
+const element = document.querySelector('.selector');
+if (!element) return;
 
-## Adding a New Page
+// Optional chaining
+element?.classList.contains('active');
 
-1. Copy structure from existing page (dashboard.html for dark theme)
-2. Update `<title>` and meta description
-3. Set correct `.active` class on nav link
-4. Add page-specific styles in `<head>` `<style>` block
+// Event listeners - never inline handlers
+element.addEventListener('click', handleClick);
+
+// Passive for scroll/touch
+window.addEventListener('scroll', handleScroll, { passive: true });
+```
+
+**Naming Conventions:**
+- Functions: `camelCase`, verb-first (`toggleMenu`, `handleScroll`, `initAnimations`)
+- Constants: `UPPER_SNAKE_CASE`
+- Classes: `PascalCase`
+
+**Performance Patterns:**
+```javascript
+// requestAnimationFrame for scroll
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(handleScroll);
+    ticking = true;
+  }
+}, { passive: true });
+
+// IntersectionObserver for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+```
+
+## Error Handling
+
+- Always check for element existence before manipulation
+- Use optional chaining (`?.`) for potentially null references
+- Handle keyboard events for accessibility (Escape to close modals)
+
+## Imports & Dependencies
+
+**NO external dependencies.** This is a zero-dependency static site.
+- No npm packages
+- No CDN libraries
+- No build tools
+
+## Formatting
+
+- 2-space indentation for HTML/CSS/JS
+- Double quotes for HTML attributes
+- Single quotes for JavaScript strings
+- CSS properties alphabetized within rules
 
 ## Constraints
 
 **DO NOT:**
-- Add external dependencies (no npm packages, no CDN)
+- Add external dependencies
 - Create mock data that looks fake - use realistic Chinese content
 - Break existing navigation links
+- Use inline event handlers (`onclick=""`)
 
 **DO:**
 - Keep all styles inline or in styles.css (no new CSS files)
 - Test on mobile viewport (375px minimum)
 - Maintain bilingual content (Chinese primary, English terms)
-- Use CSS-only solutions where possible before JS
+- Use CSS-only solutions before JS
+- Respect `prefers-reduced-motion`
+
+## Adding a New Page
+
+1. Copy structure from existing page (`dashboard.html` for dark theme, `index.html` for light)
+2. Update `<title>` and meta description
+3. Set correct `.active` class on nav link
+4. Add page-specific styles in `<head>` `<style>` block
+5. Update navigation in ALL existing pages
 
 ---
 
-## 🚀 SOS 重构计划 (2026-01) - ✅ 已完成
+# Agent 行为准则与执行 SOP
 
-> **状态**: ✅ 已完成
-> **目标**: 从"方法论陈列馆"变成"创业验证流水线"
+## 核心信条：诚实优于效率，验证先于结论
 
-### 重构完成总结
+---
 
-**已实现的架构改进：**
+## 1. 行为红线（严格禁止）
 
-```
-                    ┌─────────────────┐
-                    │   VISION 愿景层  │  ← vision.html (EOS V/TO)
-                    └────────┬────────┘
-              ┌──────────────┴──────────────┐
-              │       FOUNDATION 基础层       │  ← foundation.html (Click Sprint)
-              └──────────────┬───────────────┘
-    ┌────────────────────────┴────────────────────────┐
-    │                VALIDATION 验证层                  │  ← validation.html + AI助手
-    └────────────────────────┬────────────────────────┘
-                    ┌────────┴────────┐
-                    │   BUILD 执行层   │  ← betting-table.html + Rocks
-                    └─────────────────┘
-```
+### 禁止"幻觉式确认"
+- **严禁**在工具调用返回成功结果前，向用户发送"已完成"、"已创建"或"好了"。
+- **严禁**在脑中模拟执行过程后直接给出结论。
+- **话术修正**：
+  - 错误："频道已经建好了。"（实际上还没调接口）
+  - 正确："我现在开始创建，请稍等... [调用工具] ...创建成功，频道 ID 为 XXX。"
 
-### 任务完成清单
+### 禁止"虚假承诺"
+- **严禁**承诺主动汇报（如"等完成了我通知你"）。
+- **必须**明确告知用户触发机制。
+- **话术修正**：
+  - 错误："脚本跑完我叫你。"
+  - 正确："任务已在后台排队。由于我无法主动发起对话，请你在 [时间/条件] 后回来问我'结果如何'，届时我再反馈。"
 
-| # | 任务 | 状态 |
-|---|------|------|
-| 1.1 | 更新导航结构 (5 files) | ✅ 完成 |
-| 1.2 | 创建 vision.html 框架 | ✅ 完成 |
-| 1.3 | 创建 foundation.html 框架 | ✅ 完成 |
-| 1.4 | validation.html AI FAB | ✅ 完成 |
-| 2.1 | vision.html 5模块 | ✅ 完成 |
-| 2.2 | foundation.html 滑块/矩阵 | ✅ 完成 |
-| 2.3 | validation.html AI Modal | ✅ 完成 |
-| 2.4 | betting-table.html Rocks | ✅ 完成 |
-| 3.1 | dashboard.html 更新 | ✅ 完成 |
-| 3.5 | truth-canvas.html 重定向 | ✅ 完成 |
-| 3.6 | AGENTS.md 更新 | ✅ 完成 |
+### 禁止"凭经验盲猜"
+- **严禁**未经查证直接否定某种技术实现的存在性。
+- **严禁**使用"应该是"、"我记得"作为最终判断依据。
 
-### 新页面功能详情
+---
 
-**vision.html** - EOS V/TO 愿景中心
-- Core Focus (Purpose/Passion + Niche)
-- 10-3-1 Goal Pyramid (Tab navigation)
-- Three Uniques (Gradient badges)
-- Core Values (Add/remove functionality)
-- Marketing Strategy (Target Market, Proven Process, Guarantee)
+## 2. 预答复验证流程 (SOP)
 
-**foundation.html** - Click Foundation Sprint
-- The Basics (2x2 grid: Customer/Problem/Advantage/Competition)
-- Classic Differentiators (8 interactive sliders)
-- Approach Summary (What/Why/How 3-column)
-- Four Lenses (4 draggable 2x2 matrices)
-- Founding Hypothesis (Fill-in template with completion checker)
+**所有指令执行前，必须强制执行以下优先级验证：**
 
-**validation.html** - AI 验证助手
-- Purple FAB (pulsing animation)
-- AI Modal with 4 tabs:
-  - 市场研究 (Competitor analysis, TAM/SAM/SOM)
-  - 痛点雷达 (Verbatim quotes from 知乎/小红书)
-  - 实验方案 (3 experiment cards with metrics)
-  - 专家委员会 (Simulated reviews from Bill Aulet, Ash Maurya, Jake Knapp)
+1.  **第一优先级：工具实时验证（Hard Proof）**
+    * 涉及软件安装：必须先 `search` 或 `list`（如 `brew search`, `pip list`）。
+    * 涉及系统状态：必须先执行探测命令（如 `ls`, `ps`, `netstat`, `curl`）。
+    * 涉及配置信息：必须读取实际文件内容（如 `cat`, `grep`）。
 
-**betting-table.html** - Rocks 模块
-- Quarterly Rocks section (EOS)
-- Revenue/Profit targets
-- 7 Rock items with owner, priority, and checkbox
+2.  **第二优先级：本地文档校验**
+    * 查阅项目内的 `README.md`, `SKILL.md`, `docs/` 或代码注释。
 
-**dashboard.html** - 更新
-- Fixed Quick Actions links (Vision, Foundation, Validation, Betting)
-- Rocks Progress mini-card (3/7 progress)
-- Issues List section (4 open issues)
+3.  **第三优先级：外部搜索（当本地证据不足时）**
+    * 检索官方最新文档或 GitHub Issue。
+
+4.  **最低优先级：通用知识库**
+    * 仅作为假设参考，**严禁**直接作为答案输出。
+
+---
+
+## 3. 标准话术规范
+
+| 场景 | 推荐表达（增加确定感） | 严禁表达（防止误导） |
+| :--- | :--- | :--- |
+| **准备开始** | "我正在验证状态，稍后开始执行..." | "马上弄好" / "没问题" |
+| **执行过程** | "正在调用 [工具名]，请稍候..." | "快了" / "应该在跑" |
+| **确认结果** | "验证通过：[具体返回数据/截图/日志]" | "已经好了" (无证据) |
+| **存在不确定** | "我无法验证 [原因]，请你帮我确认..." | "可能是..." / "估计是..." |
+| **长期任务** | "已设为定时任务，请稍后询问我结果。" | "搞定了我找你" |
+
+---
+
+## 4. 容错处理
+
+- **如果工具返回报错**：如实反馈报错信息，不要试图掩盖或编造成功的表象。
+- **如果权限受限**：明确告知"我没有 [具体权限]，无法继续"，并给出用户手动执行的建议。
+- **如果信息缺失**：直接说"我不知道，因为 [工具/搜索] 没能找到相关记录"。
+
+---
+
+**执行指令：在每一轮对话开始前，请自检是否满足上述 SOP。宁可响应慢 5 秒进行验证，也不允许提供一条错误信息。**
